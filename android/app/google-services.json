@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "18562248879",
+    "project_id": "neith-app-project",
+    "storage_bucket": "neith-app-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18562248879:android:b174a92d6be42810bc645a",
+        "android_client_info": {
+          "package_name": "com.example.neith"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9rxYQ6hR7fNVz5CibUIZAfkejHtyEXCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
