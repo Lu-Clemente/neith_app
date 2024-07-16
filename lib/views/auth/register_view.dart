@@ -3,38 +3,42 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'register_view.dart';
-import 'home_view.dart';
+import 'email_confirmation_view.dart';
+import 'login_view.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  _LoginViewState createState() => _LoginViewState();
+  _RegisterViewState createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterViewState extends State<RegisterView> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> _login() async {
+  Future<void> _register() async {
     if (_formKey.currentState?.validate() ?? false) {
       try {
-        await _auth.signInWithEmailAndPassword(
+        final userCredentials = await _auth.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+        print(userCredentials);
         if (mounted) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const HomeView()),
+            MaterialPageRoute(
+              builder: (context) =>
+                  EmailConfirmationView(user: userCredentials.user!),
+            ),
           );
         }
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login Failed: ${e.message}')),
+          SnackBar(content: Text('Registration Failed: ${e.message}')),
         );
       }
     }
@@ -44,7 +48,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Register'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -75,19 +79,18 @@ class _LoginViewState extends State<LoginView> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _login,
-                child: const Text('Login'),
+                onPressed: _register,
+                child: const Text('Register'),
               ),
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegisterView()),
+                    MaterialPageRoute(builder: (context) => const LoginView()),
                   );
                 },
-                child: const Text("Don't have an account? Register"),
+                child: const Text('Already have an account? Login'),
               ),
             ],
           ),
