@@ -43,7 +43,17 @@ class HomeView extends StatelessWidget {
           ],
         ),
         body: Center(
-          child: Text('Welcome ${_getUser()}'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Image(
+                image: AssetImage('assets/logo.png'),
+                height: 100,
+              ),
+              const SizedBox(height: 40),
+              Text('Welcome ${_getUser()}'),
+            ],
+          ),
         ),
       ),
     );
