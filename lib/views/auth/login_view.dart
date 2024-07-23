@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:neith/views/auth/email_confirmation_view.dart';
 import 'package:neith/views/auth/forget_password.dart';
 
 import 'register_view.dart';
@@ -11,10 +12,10 @@ class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
   @override
-  _LoginViewState createState() => _LoginViewState();
+  LoginViewState createState() => LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -28,12 +29,22 @@ class _LoginViewState extends State<LoginView> {
           password: _passwordController.text.trim(),
         );
         if (mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeView(user: _auth.currentUser!),
-            ),
-          );
+          if (_auth.currentUser?.emailVerified == false) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    EmailConfirmationView(user: _auth.currentUser!),
+              ),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeView(),
+              ),
+            );
+          }
         }
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(

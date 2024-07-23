@@ -1,9 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../home_view.dart';
-import 'login_view.dart';
 
 class EmailConfirmationView extends StatefulWidget {
   final User user;
@@ -11,11 +12,13 @@ class EmailConfirmationView extends StatefulWidget {
   const EmailConfirmationView({super.key, required this.user});
 
   @override
-  _EmailConfirmationViewState createState() => _EmailConfirmationViewState();
+  EmailConfirmationViewState createState() => EmailConfirmationViewState();
 }
 
-class _EmailConfirmationViewState extends State<EmailConfirmationView> {
+class EmailConfirmationViewState extends State<EmailConfirmationView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  Timer? _timer;
+  bool isVerified = false;
 
   Future<void> _sendEmailVerification() async {
     widget.user.sendEmailVerification();
@@ -24,27 +27,66 @@ class _EmailConfirmationViewState extends State<EmailConfirmationView> {
     );
   }
 
-  Future<void> _checkEmailVerified() async {
+  Future<bool> _checkEmailVerified() async {
     await widget.user.reload();
     if (widget.user.emailVerified) {
+      return true;
+    }
+    return false;
+  }
+
+  _handleEmailVerification() async {
+    bool isVerified = await _checkEmailVerified();
+    if (isVerified) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => HomeView(
-                  user: widget.user,
-                )),
+          builder: (context) => HomeView(),
+        ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Email not verified yet')),
+        const SnackBar(content: Text('Email not verified')),
       );
     }
+  }
+
+  void _navigateToHome() {
+    _timer?.cancel(); // Stop the timer once the user is verified
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => HomeView(),
+      ),
+    );
+  }
+
+  void _startVerificationCheck() {
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) async {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await user.reload();
+        user = _auth.currentUser;
+        if (user != null && user.emailVerified) {
+          setState(() {
+            isVerified = true;
+          });
+          _navigateToHome();
+        }
+      }
+    });
   }
 
   @override
   void initState() {
     super.initState();
     _sendEmailVerification();
+    _startVerificationCheck();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -66,19 +108,8 @@ class _EmailConfirmationViewState extends State<EmailConfirmationView> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _checkEmailVerified,
-              child: Text('I have verified my email'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                _auth.signOut();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginView()),
-                );
-              },
-              child: const Text('Go to Login'),
+              onPressed: _handleEmailVerification,
+              child: const Text('I have verified my email'),
             ),
           ],
         ),

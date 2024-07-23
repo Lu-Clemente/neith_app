@@ -10,10 +10,10 @@ class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
   @override
-  _RegisterViewState createState() => _RegisterViewState();
+  RegisterViewState createState() => RegisterViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class RegisterViewState extends State<RegisterView> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -26,7 +26,6 @@ class _RegisterViewState extends State<RegisterView> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
-        print(userCredentials);
         if (mounted) {
           Navigator.pushReplacement(
             context,

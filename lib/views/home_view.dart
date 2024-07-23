@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'auth/login_view.dart';
 
 class HomeView extends StatelessWidget {
-  final User user;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  HomeView({super.key, required this.user});
+  HomeView({super.key});
 
   Future<void> _signOut(context) async {
     try {
@@ -30,18 +29,22 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => _signOut(context),
-          ),
-        ],
-      ),
-      body: Center(
-        child: Text('Welcome ${_getUser()}'),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Home'),
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () => _signOut(context),
+            ),
+          ],
+        ),
+        body: Center(
+          child: Text('Welcome ${_getUser()}'),
+        ),
       ),
     );
   }
