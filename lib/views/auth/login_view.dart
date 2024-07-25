@@ -3,14 +3,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 import 'package:neith/views/auth/email_confirmation_view.dart';
 import 'package:neith/views/auth/forget_password.dart';
 import 'package:neith/widgets/buttons/neith_icon_button.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/inputs/neith_text_field.dart';
-
-import 'register_view.dart';
-import '../home_view.dart';
+import 'package:neith/views/auth/register_view.dart';
+import 'package:neith/views/home_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
