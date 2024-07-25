@@ -173,7 +173,7 @@ class LoginViewState extends State<LoginView> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 35),
             ],
           ),
         ),
