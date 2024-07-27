@@ -51,7 +51,7 @@ class NeithAppBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 20.0,
-        vertical: 5.0,
+        vertical: 10.0,
       ),
       child: AppBar(
         leading: showBackButton ? const GoBackButton() : null,

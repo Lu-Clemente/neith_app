@@ -92,10 +92,11 @@ class LoginViewState extends State<LoginView> {
                     width: 93.38,
                   ),
                   const SizedBox(height: 46.6),
-                  Text(
-                    'Login to your account',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
+                  const Text('Login to your account',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 32,
+                      )),
                   const SizedBox(height: 20),
                   NeithTextField(
                     controller: _emailController,
