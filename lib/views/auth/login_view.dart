@@ -121,13 +121,17 @@ class LoginViewState extends State<LoginView> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  Container(
+                  Align(
                     alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: _goToForgetPassword,
+                    heightFactor: 1,
+                    child: GestureDetector(
+                      onTap: _goToForgetPassword,
                       child: const Text(
                         'Forgot your Password?',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
