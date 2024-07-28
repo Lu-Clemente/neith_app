@@ -118,8 +118,6 @@ class RegisterViewState extends State<RegisterView> {
                 NeithTextButton(
                   onPressed: _register,
                   label: 'Sign Up',
-                  textColor: Colors.white,
-                  backgroundColor: const Color(0xFF1F1B59),
                 ),
                 const SizedBox(height: 10),
                 NeithIconButton(

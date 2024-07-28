@@ -139,8 +139,6 @@ class LoginViewState extends State<LoginView> {
                   NeithTextButton(
                     onPressed: _login,
                     label: 'Sign In',
-                    textColor: Colors.white,
-                    backgroundColor: const Color(0xFF1F1B59),
                   ),
                   const SizedBox(height: 10),
                   NeithIconButton(
