@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:neith/views/auth/login_view.dart';
 import 'package:neith/views/auth/reset_password_view.dart';
-import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/layout.dart';
 
 class ProfileView extends StatelessWidget {
