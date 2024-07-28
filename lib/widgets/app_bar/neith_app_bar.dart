@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neith/views/profile/profile.dart';
 
 import 'package:neith/widgets/app_bar/custom_app_bar_label.dart';
 import 'package:neith/widgets/buttons/app_bar_action_button.dart';
@@ -46,6 +47,13 @@ class NeithAppBar extends StatelessWidget {
     return null;
   }
 
+  _goToProfileView(context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => ProfileView()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -71,9 +79,7 @@ class NeithAppBar extends StatelessWidget {
               : const SizedBox(),
           actions.contains(NeithAppBarAction.profile)
               ? AppBarActionButton(
-                  onPressed: () {
-                    print('Profile');
-                  },
+                  onPressed: () => _goToProfileView(context),
                   icon: Icons.person_outline,
                 )
               : const SizedBox(),
