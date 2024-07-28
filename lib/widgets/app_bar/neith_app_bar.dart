@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neith/views/profile/profile.dart';
+import 'package:neith/views/profile/profile_view.dart';
 
 import 'package:neith/widgets/app_bar/custom_app_bar_label.dart';
 import 'package:neith/widgets/buttons/app_bar_action_button.dart';
