@@ -22,9 +22,11 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Timer? _timer;
   bool isVerified = false;
+  bool emailSent = false;
 
   Future<void> _sendEmailVerification() async {
     widget.user.sendEmailVerification();
+    emailSent = true;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Verification email sent')),
     );
@@ -74,6 +76,8 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
             isVerified = true;
           });
           _navigateToHome();
+        } else {
+          if (!emailSent) _sendEmailVerification();
         }
       }
     });
@@ -82,7 +86,6 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
   @override
   void initState() {
     super.initState();
-    _sendEmailVerification();
     _startVerificationCheck();
   }
 
