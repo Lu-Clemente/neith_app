@@ -26,7 +26,7 @@ class ProfileView extends StatelessWidget {
   }
 
   void _goToResetPassword(BuildContext context) {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => const ResetPasswordView(),

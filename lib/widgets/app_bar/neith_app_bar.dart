@@ -48,7 +48,7 @@ class NeithAppBar extends StatelessWidget {
   }
 
   _goToProfileView(context) {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ProfileView()),
     );

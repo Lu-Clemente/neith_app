@@ -32,7 +32,7 @@ class RegisterViewState extends State<RegisterView> {
           password: _passwordController.text.trim(),
         );
         if (mounted) {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) =>

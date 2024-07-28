@@ -35,7 +35,7 @@ class LoginViewState extends State<LoginView> {
         );
         if (mounted) {
           if (_auth.currentUser?.emailVerified == false) {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
