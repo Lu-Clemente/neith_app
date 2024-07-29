@@ -4,7 +4,10 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../home_view.dart';
+import 'package:neith/views/home_view.dart';
+import 'package:neith/widgets/app_bar/neith_app_bar.dart';
+import 'package:neith/widgets/buttons/neith_text_button.dart';
+import 'package:neith/widgets/layout.dart';
 
 class EmailConfirmationView extends StatefulWidget {
   final User user;
@@ -19,9 +22,11 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Timer? _timer;
   bool isVerified = false;
+  bool emailSent = false;
 
   Future<void> _sendEmailVerification() async {
     widget.user.sendEmailVerification();
+    emailSent = true;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Verification email sent')),
     );
@@ -71,6 +76,8 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
             isVerified = true;
           });
           _navigateToHome();
+        } else {
+          if (!emailSent) _sendEmailVerification();
         }
       }
     });
@@ -79,7 +86,6 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
   @override
   void initState() {
     super.initState();
-    _sendEmailVerification();
     _startVerificationCheck();
   }
 
@@ -91,28 +97,44 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Email Confirmation'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-                'A verification email has been sent to your email address.'),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _sendEmailVerification,
-              child: const Text('Resend Verification Email'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _handleEmailVerification,
-              child: const Text('I have verified my email'),
-            ),
-          ],
-        ),
+    return Layout(
+      appBar: const NeithAppBar(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                'Email confirmation',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 32,
+                ),
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'A verification email has been sent to your email address.',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 40),
+              NeithTextButton(
+                onPressed: _sendEmailVerification,
+                label: 'Resend verification email',
+              ),
+              const SizedBox(height: 20),
+              NeithTextButton(
+                onPressed: _handleEmailVerification,
+                label: 'I have verified my email',
+                variant: NeithTextButtonVariant.secondary,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -24,9 +24,10 @@ class MainApp extends StatelessWidget {
     return AuthProvider(
       auth: AuthService(),
       child: MaterialApp(
-        title: 'Flutter Login',
+        title: 'Neith',
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          fontFamily: 'Roboto',
         ),
         home: const HomeController(),
       ),
