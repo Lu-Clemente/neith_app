@@ -26,7 +26,11 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Neith',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: const Color(0xFF7BA6EF),
+            secondary: const Color(0xFF1F1B59),
+            background: const Color.fromARGB(255, 255, 255, 255),
+          ),
           fontFamily: 'Roboto',
         ),
         home: const HomeController(),

@@ -91,7 +91,7 @@ class RegisterViewState extends State<RegisterView> {
                 NeithTextField(
                   controller: _passwordController,
                   labelText: 'Password',
-                  obscureText: true,
+                  isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -103,7 +103,7 @@ class RegisterViewState extends State<RegisterView> {
                 NeithTextField(
                   controller: _passwordConfirmationController,
                   labelText: 'Confirm Password',
-                  obscureText: true,
+                  isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please confirm your password';

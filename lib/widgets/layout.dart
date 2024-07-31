@@ -15,21 +15,24 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: appBar != null
-          ? Column(
-              children: [
-                appBar!,
-                Padding(
-                  padding: padding,
-                  child: body,
-                ),
-              ],
-            )
-          : Padding(
-              padding: padding,
-              child: body,
-            ),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: appBar != null
+            ? Column(
+                children: [
+                  appBar!,
+                  Padding(
+                    padding: padding,
+                    child: body,
+                  ),
+                ],
+              )
+            : Padding(
+                padding: padding,
+                child: body,
+              ),
+      ),
     );
   }
 }

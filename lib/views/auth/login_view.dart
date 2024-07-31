@@ -112,7 +112,7 @@ class LoginViewState extends State<LoginView> {
                   NeithTextField(
                     controller: _passwordController,
                     labelText: 'Password',
-                    obscureText: true,
+                    isPassword: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your password';

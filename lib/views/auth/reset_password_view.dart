@@ -79,7 +79,7 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
                 NeithTextField(
                   controller: _newPasswordController,
                   labelText: 'New password',
-                  obscureText: true,
+                  isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your new password';
@@ -91,7 +91,7 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
                 NeithTextField(
                   controller: _newPasswordConfirmationController,
                   labelText: 'Confirm new password',
-                  obscureText: true,
+                  isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please confirm your new password';
