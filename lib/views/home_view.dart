@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:neith/utils/time.dart';
 import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/layout.dart';
+import 'package:neith/widgets/navigation_bar/navigation_bar.dart';
 
 class HomeView extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -33,6 +34,7 @@ class HomeView extends StatelessWidget {
         title: 'Welcome, ${_getUser()}!',
         subtitle: 'Today, ${getTodayDate()}',
       ),
+      navBar: const NavigationBarWidget(),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
