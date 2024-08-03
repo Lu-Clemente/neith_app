@@ -7,7 +7,7 @@ import 'package:neith/widgets/buttons/go_back_button.dart';
 
 enum NeithAppBarAction { notifications, profile }
 
-class NeithAppBar extends StatelessWidget {
+class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
   final void Function()? onBackButtonPressed;
   final String? title;
@@ -58,7 +58,7 @@ class NeithAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20.0,
+        horizontal: 10.0,
         vertical: 10.0,
       ),
       child: AppBar(
@@ -87,4 +87,7 @@ class NeithAppBar extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

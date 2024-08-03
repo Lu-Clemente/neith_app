@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:neith/utils/time.dart';
 import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/layout.dart';
-import 'package:neith/widgets/navigation_bar/navigation_bar.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  HomeView({super.key});
 
   String _getUser() {
     final user = _auth.currentUser;
@@ -23,6 +27,11 @@ class HomeView extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Layout(
       appBar: NeithAppBar(
@@ -34,13 +43,10 @@ class HomeView extends StatelessWidget {
         title: 'Welcome, ${_getUser()}!',
         subtitle: 'Today, ${getTodayDate()}',
       ),
-      navBar: const NavigationBarWidget(),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Placeholder(),
-          ],
+      body: Center(
+        child: Text(
+          'Welcome dear user, ${_getUser()}!',
+          style: const TextStyle(fontSize: 24),
         ),
       ),
     );

@@ -1,52 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:neith/views/index_controller.dart';
 
-class NavigationBarWidget extends StatefulWidget {
-  const NavigationBarWidget({super.key});
+class NavigationBarWidget extends StatelessWidget {
+  final IndexController controller;
+  final Function(int) onItemTapped;
 
-  @override
-  State<NavigationBarWidget> createState() => _NavigationBarState();
-}
-
-class _NavigationBarState extends State<NavigationBarWidget> {
-  int currentPageIndex = 0;
+  const NavigationBarWidget({
+    super.key,
+    required this.controller,
+    required this.onItemTapped,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: kBottomNavigationBarHeight,
-      child: Scaffold(
-        bottomNavigationBar: NavigationBar(
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentPageIndex = index;
-            });
-          },
-          indicatorColor: Colors.blue.shade400,
-          backgroundColor: Colors.lightBlue.shade50,
-          selectedIndex: currentPageIndex,
-          destinations: const <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.bookmark_outline),
-              label: 'Travel Plans',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              label: 'Profile',
-            ),
-          ],
+    return BottomNavigationBar(
+      currentIndex: controller.currentTab,
+      onTap: (int index) => onItemTapped(index),
+      type: BottomNavigationBarType.fixed,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_outlined),
+          label: 'Home',
         ),
-      ),
-    ));
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search),
+          label: 'Search',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.bookmark_outline),
+          label: 'Travel Plans',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_outline),
+          label: 'Profile',
+        ),
+      ],
+    );
   }
 }
