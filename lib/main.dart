@@ -5,8 +5,11 @@ import 'firebase_options.dart';
 import 'services/auth.dart';
 import 'views/auth/email_confirmation_view.dart';
 import 'views/auth/login_view.dart';
-import 'views/home_view.dart';
+import 'views/home/home_view.dart';
 import 'views/auth/auth_provider.dart';
+
+import 'navigator_keys.dart';
+import 'routes_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +36,9 @@ class MainApp extends StatelessWidget {
           ),
           fontFamily: 'Roboto',
         ),
-        home: const HomeController(),
+        navigatorKey: NavigatorKeys.navigatorKeyMain,
+        routes: routes,
+        initialRoute: '/',
       ),
     );
   }
@@ -57,7 +62,7 @@ class HomeController extends StatelessWidget {
               if (!user.emailVerified) {
                 return EmailConfirmationView(user: user);
               } else {
-                return HomeView();
+                return const HomeView();
               }
             }
           } else {

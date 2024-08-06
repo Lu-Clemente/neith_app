@@ -1,63 +1,38 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:neith/views/index_controller.dart';
 import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 
 class Layout extends StatelessWidget {
-  final Widget body;
+  final Widget? body;
   final EdgeInsets padding;
   final NeithAppBar? appBar;
+  final bool? navBar;
+  final IndexController? controller;
+  final Function(int)? onItemTapped;
 
   const Layout({
     Key? key,
-    required this.body,
+    this.body,
     this.padding = const EdgeInsets.all(20.0),
     this.appBar,
+    this.navBar,
+    this.controller,
+    this.onItemTapped,
   }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Platform.isAndroid
-        ? SafeArea(
-            child: BaseLayout(
-              appBar: appBar,
-              padding: padding,
-              body: body,
-            ),
-          )
-        : BaseLayout(
-            appBar: appBar,
-            padding: padding,
-            body: body,
-          );
-  }
-}
-
-class BaseLayout extends StatelessWidget {
-  const BaseLayout({
-    super.key,
-    required this.appBar,
-    required this.padding,
-    required this.body,
-  });
-
-  final NeithAppBar? appBar;
-  final EdgeInsets padding;
-  final Widget body;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: appBar != null
-          ? Column(
-              children: [
-                appBar!,
-                Padding(
-                  padding: padding,
-                  child: body,
-                ),
-              ],
+      appBar: appBar,
+      body: Platform.isAndroid
+          ? SafeArea(
+              child: Padding(
+                padding: padding,
+                child: body,
+              ),
             )
           : Padding(
               padding: padding,

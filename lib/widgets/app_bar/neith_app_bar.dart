@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neith/navigator_keys.dart';
 import 'package:neith/views/profile/profile_view.dart';
 
 import 'package:neith/widgets/app_bar/custom_app_bar_label.dart';
@@ -7,7 +8,7 @@ import 'package:neith/widgets/buttons/go_back_button.dart';
 
 enum NeithAppBarAction { notifications, profile }
 
-class NeithAppBar extends StatelessWidget {
+class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
   final void Function()? onBackButtonPressed;
   final String? title;
@@ -47,10 +48,16 @@ class NeithAppBar extends StatelessWidget {
     return null;
   }
 
-  _goToProfileView(context) {
+  void _goToNotifications(BuildContext context) {
     Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ProfileView()),
+      NavigatorKeys.navigatorKeyMain.currentContext!,
+      MaterialPageRoute(
+        builder: (context) => const Scaffold(
+          body: Center(
+            child: Text('Notifications'),
+          ),
+        ),
+      ),
     );
   }
 
@@ -58,7 +65,7 @@ class NeithAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20.0,
+        horizontal: 10.0,
         vertical: 10.0,
       ),
       child: AppBar(
@@ -71,20 +78,15 @@ class NeithAppBar extends StatelessWidget {
         actions: [
           actions.contains(NeithAppBarAction.notifications)
               ? AppBarActionButton(
-                  onPressed: () {
-                    print('Notifications');
-                  },
+                  onPressed: () => _goToNotifications(context),
                   icon: Icons.notifications_none_outlined,
-                )
-              : const SizedBox(),
-          actions.contains(NeithAppBarAction.profile)
-              ? AppBarActionButton(
-                  onPressed: () => _goToProfileView(context),
-                  icon: Icons.person_outline,
                 )
               : const SizedBox(),
         ],
       ),
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
