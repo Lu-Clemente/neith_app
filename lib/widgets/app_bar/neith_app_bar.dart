@@ -48,15 +48,6 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
     return null;
   }
 
-  void _goToProfileView(context) {
-    Navigator.push(
-      NavigatorKeys.navigatorKeyMain.currentContext!,
-      MaterialPageRoute(
-        builder: (context) => ProfileView(),
-      ),
-    );
-  }
-
   void _goToNotifications(BuildContext context) {
     Navigator.push(
       NavigatorKeys.navigatorKeyMain.currentContext!,
@@ -89,12 +80,6 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
               ? AppBarActionButton(
                   onPressed: () => _goToNotifications(context),
                   icon: Icons.notifications_none_outlined,
-                )
-              : const SizedBox(),
-          actions.contains(NeithAppBarAction.profile)
-              ? AppBarActionButton(
-                  onPressed: () => _goToProfileView(context),
-                  icon: Icons.person_outline,
                 )
               : const SizedBox(),
         ],

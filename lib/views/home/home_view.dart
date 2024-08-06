@@ -36,7 +36,6 @@ class _HomeViewState extends State<HomeView> {
     return Layout(
       appBar: NeithAppBar(
         actions: const [
-          NeithAppBarAction.profile,
           NeithAppBarAction.notifications,
         ],
         showBackButton: false,
