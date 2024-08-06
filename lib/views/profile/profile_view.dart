@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:neith/navigator_keys.dart';
 import 'package:neith/views/auth/login_view.dart';
 import 'package:neith/views/auth/reset_password_view.dart';
 import 'package:neith/widgets/layout.dart';
@@ -25,11 +26,16 @@ class ProfileView extends StatelessWidget {
   }
 
   void _goToResetPassword(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ResetPasswordView(),
-      ),
+    Navigator.pushNamed(
+      NavigatorKeys.navigatorKeyMain.currentContext!,
+      '/profile/reset_password',
+    );
+  }
+
+  void _goToNotifications(BuildContext context) {
+    Navigator.pushNamed(
+      NavigatorKeys.navigatorKeyProfile.currentContext ?? context,
+      '/profile/notifications',
     );
   }
 
@@ -56,7 +62,7 @@ class ProfileView extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextButton(
-              onPressed: () {},
+              onPressed: () => _goToNotifications(context),
               child: const Text('Notifications'),
             ),
             const SizedBox(height: 10),

@@ -6,7 +6,7 @@ class GoBackButton extends StatelessWidget {
   }) : super(key: key);
 
   _goBack(BuildContext context) {
-    Navigator.of(context).pop();
+    Navigator.pop(context);
   }
 
   @override

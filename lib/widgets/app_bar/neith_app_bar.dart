@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neith/navigator_keys.dart';
 import 'package:neith/views/profile/profile_view.dart';
 
 import 'package:neith/widgets/app_bar/custom_app_bar_label.dart';
@@ -47,10 +48,25 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
     return null;
   }
 
-  _goToProfileView(context) {
+  void _goToProfileView(context) {
     Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ProfileView()),
+      NavigatorKeys.navigatorKeyMain.currentContext!,
+      MaterialPageRoute(
+        builder: (context) => ProfileView(),
+      ),
+    );
+  }
+
+  void _goToNotifications(BuildContext context) {
+    Navigator.push(
+      NavigatorKeys.navigatorKeyMain.currentContext!,
+      MaterialPageRoute(
+        builder: (context) => const Scaffold(
+          body: Center(
+            child: Text('Notifications'),
+          ),
+        ),
+      ),
     );
   }
 
@@ -71,9 +87,7 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
         actions: [
           actions.contains(NeithAppBarAction.notifications)
               ? AppBarActionButton(
-                  onPressed: () {
-                    print('Notifications');
-                  },
+                  onPressed: () => _goToNotifications(context),
                   icon: Icons.notifications_none_outlined,
                 )
               : const SizedBox(),

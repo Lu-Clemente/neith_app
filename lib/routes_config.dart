@@ -5,7 +5,6 @@ import 'package:neith/views/auth/reset_password_view.dart';
 import 'package:neith/views/home/home_view.dart';
 import 'package:neith/views/index_view.dart';
 import 'package:neith/views/profile/profile_view.dart';
-import 'package:neith/widgets/layout.dart';
 
 get tabs => [
       TabItemWidget(
