@@ -19,12 +19,12 @@ class _HomeViewState extends State<HomeView> {
     return user?.displayName ?? 'dear user';
   }
 
-  Future<void> _registerUserName() async {
+  /*  Future<void> _registerUserName() async {
     final user = _auth.currentUser;
     if (user?.displayName == null) {
       await user?.updateDisplayName('Lu Clemente');
     }
-  }
+  } */
 
   @override
   void initState() {

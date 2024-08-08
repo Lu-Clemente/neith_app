@@ -35,7 +35,7 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeView(),
+              builder: (context) => const HomeView(),
             ),
           );
         }

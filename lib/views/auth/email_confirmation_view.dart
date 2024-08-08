@@ -46,7 +46,7 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => HomeView(),
+          builder: (context) => const HomeView(),
         ),
       );
     } else {
@@ -60,7 +60,7 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
     _timer?.cancel(); // Stop the timer once the user is verified
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => HomeView(),
+        builder: (context) => const HomeView(),
       ),
     );
   }
