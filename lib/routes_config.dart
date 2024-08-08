@@ -5,6 +5,7 @@ import 'package:neith/views/auth/reset_password_view.dart';
 import 'package:neith/views/home/home_view.dart';
 import 'package:neith/views/index_view.dart';
 import 'package:neith/views/profile/profile_view.dart';
+import 'package:neith/views/search/search_view.dart';
 
 get tabs => [
       TabItemWidget(
@@ -15,11 +16,7 @@ get tabs => [
       ),
       TabItemWidget(
         routes: {
-          '/': (BuildContext context) => const Scaffold(
-                body: Center(
-                  child: Text('Search'),
-                ),
-              ),
+          '/': (BuildContext context) => const SearchView(),
         },
         navigatorKey: NavigatorKeys.navigatorKeySearch,
       ),
