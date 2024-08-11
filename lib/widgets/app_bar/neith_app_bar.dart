@@ -70,7 +70,7 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         leading: showBackButton ? const GoBackButton() : null,
         leadingWidth: 40,
-        toolbarHeight: 40,
+        toolbarHeight: 50,
         automaticallyImplyLeading: showBackButton,
         title: _renderLabel(),
         centerTitle: centerTitle,
@@ -87,5 +87,5 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(70);
 }
