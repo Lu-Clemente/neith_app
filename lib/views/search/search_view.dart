@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:neith/services/search.dart';
 import 'package:neith/widgets/actionChips/search_filter_action_chip.dart';
 import 'package:neith/widgets/inputs/neith_search_field.dart';
-// import 'package:neith/widgets/buttons/neith_text_button.dart';
-// import 'package:neith/widgets/inputs/neith_text_field.dart';
 import 'package:neith/widgets/layout.dart';
 import 'package:neith/widgets/lists/search_card_list_item.dart';
 
@@ -18,13 +17,24 @@ class SearchView extends StatefulWidget {
 class SearchViewState extends State<SearchView> {
   final _formKey = GlobalKey<FormState>();
   final _searchController = TextEditingController();
-  FilterValues _searchFilter = FilterValues.restaurants;
+  Iterable<SearchPlace> searchPlaces = [];
+  FilterValues _searchFilter = FilterValues.places;
+  bool isLoading = false;
 
-  handleSearchSubmit(String searchValue) {
+  handleSearchSubmit(String searchValue) async {
     if (searchValue.isEmpty) {
       return;
     }
+
+    isLoading = true;
     debugPrint('search: $searchValue');
+
+    final search = await fetchSearch(searchValue);
+
+    setState(() {
+      searchPlaces = search;
+      isLoading = false;
+    });
   }
 
   _handleActionClick(FilterValues filter) {
@@ -35,11 +45,14 @@ class SearchViewState extends State<SearchView> {
     setState(() {
       _searchFilter = filter;
     });
-    debugPrint('filter changed: $filter');
   }
 
   _handleCardClick(int index) {
     debugPrint('Card $index');
+  }
+
+  Widget _loadingObj() {
+    return isLoading ? const CircularProgressIndicator() : Container();
   }
 
   @override
@@ -73,13 +86,6 @@ class SearchViewState extends State<SearchView> {
                       children: [
                         SearchFilterActionChip(
                             onPressed: () =>
-                                _handleActionClick(FilterValues.restaurants),
-                            searchFilter: _searchFilter,
-                            label: 'Restaurants',
-                            choosedSearchFilter: FilterValues.restaurants),
-                        const SizedBox(width: 10),
-                        SearchFilterActionChip(
-                            onPressed: () =>
                                 _handleActionClick(FilterValues.places),
                             searchFilter: _searchFilter,
                             label: 'Places',
@@ -91,6 +97,7 @@ class SearchViewState extends State<SearchView> {
               ],
             )),
         const SizedBox(height: 20),
+        _loadingObj(),
         Expanded(
           child: CustomScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -103,9 +110,14 @@ class SearchViewState extends State<SearchView> {
                     return Padding(
                         padding: EdgeInsets.only(top: topPadding),
                         child: SearchCardListItem(
+                            name: searchPlaces.elementAt(index).name,
+                            photoUrl: searchPlaces.elementAt(index).photoUrl,
+                            shortFormattedAddress: searchPlaces
+                                .elementAt(index)
+                                .shortFormattedAddress,
                             onPressed: () => _handleCardClick(index)));
                   },
-                  childCount: 15,
+                  childCount: searchPlaces.length,
                 ),
               ),
             ],

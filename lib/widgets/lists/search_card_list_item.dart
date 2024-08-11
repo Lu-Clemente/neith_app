@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 
 class SearchCardListItem extends StatelessWidget {
   final void Function() onPressed;
+  final String name;
+  final String shortFormattedAddress;
+  final String photoUrl;
 
-  const SearchCardListItem({super.key, required this.onPressed});
+  const SearchCardListItem(
+      {super.key,
+      required this.onPressed,
+      required this.name,
+      required this.shortFormattedAddress,
+      required this.photoUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -13,25 +21,27 @@ class SearchCardListItem extends StatelessWidget {
       child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
           onTap: () => onPressed(),
-          child: const Padding(
-              padding: EdgeInsets.only(
+          child: Padding(
+              padding: const EdgeInsets.only(
                 right: 20,
               ),
               child: Row(
                 children: [
-                  Image(
-                      height: 80,
-                      image: NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi4S-xLqS6-JY3RKY0DyXPYXNiksz0fppfvg&s')),
-                  SizedBox(width: 10),
+                  Image(width: 120, image: NetworkImage(photoUrl)),
+                  const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          'Rome'),
-                      Text('Italy')
+                      LimitedBox(
+                          maxWidth: 180,
+                          child: Text(
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                              name)),
+                      LimitedBox(
+                        maxWidth: 180,
+                        child: Text(shortFormattedAddress),
+                      )
                     ],
                   )
                 ],
