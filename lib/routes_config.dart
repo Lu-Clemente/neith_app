@@ -6,6 +6,7 @@ import 'package:neith/views/home/home_view.dart';
 import 'package:neith/views/index_view.dart';
 import 'package:neith/views/profile/profile_view.dart';
 import 'package:neith/views/search/search_view.dart';
+import 'package:neith/views/travelplans/travel_plans_view.dart';
 
 get tabs => [
       TabItemWidget(
@@ -22,11 +23,7 @@ get tabs => [
       ),
       TabItemWidget(
         routes: {
-          '/': (BuildContext context) => const Scaffold(
-                body: Center(
-                  child: Text('Travel Plans'),
-                ),
-              ),
+          '/': (BuildContext context) => const TravelPlansView(),
         },
         navigatorKey: NavigatorKeys.navigatorKeyTravelPlans,
       ),
