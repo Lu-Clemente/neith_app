@@ -29,7 +29,7 @@ class SearchViewState extends State<SearchView> {
     isLoading = true;
     debugPrint('search: $searchValue');
 
-    final search = await fetchSearch(searchValue);
+    final search = await fetchSearch(searchValue.toLowerCase());
 
     setState(() {
       searchPlaces = search;

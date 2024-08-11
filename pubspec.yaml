@@ -26,3 +26,7 @@ flutter:
     - assets/google_icon.png
     - assets/meta_icon.png
     - assets/notfound.png
+    - assets/recommendationplace.png
+    - assets/icon/gmail_groups.png
+    - assets/icon/schedule.png
+    - assets/icon/today.png
