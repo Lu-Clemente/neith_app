@@ -14,10 +14,10 @@ class GoBackButton extends StatelessWidget {
     return IconButton(
       onPressed: () => _goBack(context),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(
           const Color(0xFF7BA6EF),
         ),
-        fixedSize: MaterialStateProperty.all(
+        fixedSize: WidgetStateProperty.all(
           const Size(10, 10),
         ),
       ),

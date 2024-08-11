@@ -13,17 +13,27 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String token = '';
 
   String _getUser() {
     final user = _auth.currentUser;
     return user?.displayName ?? 'dear user';
   }
 
-  Future<void> _registerUserName() async {
+  /*  Future<void> _registerUserName() async {
     final user = _auth.currentUser;
     if (user?.displayName == null) {
       await user?.updateDisplayName('Lu Clemente');
     }
+  } */
+
+  Future<void> _getUserToken() async {
+    final user = _auth.currentUser;
+    final userToken = await user?.getIdToken();
+    setState(() {
+      token = userToken!.toString();
+    });
+    debugPrint('User Token: $userToken');
   }
 
   @override
@@ -43,11 +53,17 @@ class _HomeViewState extends State<HomeView> {
         subtitle: 'Today, ${getTodayDate()}',
       ),
       body: Center(
-        child: Text(
-          'Welcome dear user, ${_getUser()}!',
-          style: const TextStyle(fontSize: 24),
-        ),
-      ),
+          child: Column(
+        children: [
+          Text(
+            'Welcome dear user, ${_getUser()}!',
+            style: const TextStyle(fontSize: 24),
+          ),
+          TextButton(
+              onPressed: () => _getUserToken(), child: const Text('Get token')),
+          Text(token)
+        ],
+      )),
     );
   }
 }

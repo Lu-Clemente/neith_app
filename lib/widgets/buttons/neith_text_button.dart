@@ -21,19 +21,19 @@ class NeithTextButton extends StatelessWidget {
     switch (variant) {
       case NeithTextButtonVariant.primary:
         return ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
+          backgroundColor: WidgetStateProperty.all(
             const Color(0xFF1F1B59),
           ),
         );
       case NeithTextButtonVariant.secondary:
         return ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
+          backgroundColor: WidgetStateProperty.all(
             Colors.white,
           ),
         );
       default:
         return ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
+          backgroundColor: WidgetStateProperty.all(
             const Color(0xFF1F1B59),
           ),
         );
@@ -72,7 +72,7 @@ class NeithTextButton extends StatelessWidget {
       ),
       child: TextButton(
         style: ButtonStyle(
-          fixedSize: MaterialStateProperty.all(
+          fixedSize: WidgetStateProperty.all(
             const Size(double.infinity, 48),
           ),
         ).merge(

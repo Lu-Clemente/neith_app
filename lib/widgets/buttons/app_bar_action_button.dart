@@ -15,10 +15,10 @@ class AppBarActionButton extends StatelessWidget {
     return IconButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(
           const Color(0xFF7BA6EF),
         ),
-        fixedSize: MaterialStateProperty.all(
+        fixedSize: WidgetStateProperty.all(
           const Size(40, 40),
         ),
       ),
