@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:neith/navigator_keys.dart';
-import 'package:neith/views/auth/login_view.dart';
 import 'package:neith/widgets/layout.dart';
 
 class ProfileView extends StatelessWidget {
@@ -13,10 +11,7 @@ class ProfileView extends StatelessWidget {
   Future<void> _signOut(context) async {
     try {
       await _auth.signOut();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginView()),
-      );
+      Navigator.of(context, rootNavigator: true).pushNamed('/login');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Sign out failed: $e')),

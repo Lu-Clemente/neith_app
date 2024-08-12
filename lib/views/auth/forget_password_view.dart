@@ -69,6 +69,7 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
                 NeithTextField(
                   controller: _emailController,
                   labelText: 'Email',
+                  textInputAction: TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';

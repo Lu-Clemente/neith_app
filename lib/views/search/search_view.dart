@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neith/services/search.dart';
+import 'package:neith/views/place/place_details_view.dart';
 import 'package:neith/widgets/actionChips/search_filter_action_chip.dart';
 import 'package:neith/widgets/inputs/neith_search_field.dart';
 import 'package:neith/widgets/layout.dart';
@@ -26,7 +27,10 @@ class SearchViewState extends State<SearchView> {
       return;
     }
 
-    isLoading = true;
+    setState(() {
+      isLoading = true;
+    });
+
     debugPrint('search: $searchValue');
 
     final search = await fetchSearch(searchValue.toLowerCase());
@@ -49,6 +53,14 @@ class SearchViewState extends State<SearchView> {
 
   _handleCardClick(int index) {
     debugPrint('Card $index');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PlaceDetailsView(
+          place: searchPlaces.elementAt(index),
+        ),
+      ),
+    );
   }
 
   Widget _loadingObj() {
@@ -79,7 +91,7 @@ class SearchViewState extends State<SearchView> {
                     const SizedBox(height: 20),
                     NeithSearchField(
                       controller: _searchController,
-                      onPressed: handleSearchSubmit,
+                      onFieldSubmitted: handleSearchSubmit,
                     ),
                     const SizedBox(height: 16),
                     Row(

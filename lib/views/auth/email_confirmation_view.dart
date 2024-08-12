@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:neith/views/home/home_view.dart';
 import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/layout.dart';
@@ -43,12 +42,8 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
   _handleEmailVerification() async {
     bool isVerified = await _checkEmailVerified();
     if (isVerified) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomeView(),
-        ),
-      );
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/', (Route<dynamic> route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Email not verified')),
@@ -58,11 +53,8 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
 
   void _navigateToHome() {
     _timer?.cancel(); // Stop the timer once the user is verified
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const HomeView(),
-      ),
-    );
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/', (Route<dynamic> route) => false);
   }
 
   void _startVerificationCheck() {

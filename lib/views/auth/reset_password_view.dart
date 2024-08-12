@@ -2,8 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:neith/views/home/home_view.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/inputs/neith_text_field.dart';
 import 'package:neith/widgets/app_bar/neith_app_bar.dart';
@@ -32,12 +30,8 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
             const SnackBar(content: Text('Password reset successful')),
           );
           await Future.delayed(const Duration(seconds: 2));
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomeView(),
-            ),
-          );
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/', (Route<dynamic> route) => false);
         }
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(

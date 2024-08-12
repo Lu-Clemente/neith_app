@@ -48,15 +48,9 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   void _goToNotifications(BuildContext context) {
-    Navigator.push(
+    Navigator.pushNamed(
       NavigatorKeys.navigatorKeyMain.currentContext!,
-      MaterialPageRoute(
-        builder: (context) => const Scaffold(
-          body: Center(
-            child: Text('Notifications'),
-          ),
-        ),
-      ),
+      '/profile/notifications',
     );
   }
 
@@ -72,6 +66,7 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
         leadingWidth: 40,
         toolbarHeight: 50,
         automaticallyImplyLeading: showBackButton,
+        forceMaterialTransparency: true,
         title: _renderLabel(),
         centerTitle: centerTitle,
         actions: [

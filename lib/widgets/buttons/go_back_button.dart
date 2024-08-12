@@ -11,20 +11,20 @@ class GoBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () => _goBack(context),
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(
-          const Color(0xFF7BA6EF),
+    return Material(
+      color: Theme.of(context).colorScheme.surface,
+      child: Center(
+        child: Ink(
+          decoration: const ShapeDecoration(
+            color: Color(0xFF7BA6EF),
+            shape: CircleBorder(),
+          ),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () => _goBack(context),
+          ),
         ),
-        fixedSize: WidgetStateProperty.all(
-          const Size(10, 10),
-        ),
-      ),
-      icon: const Icon(
-        Icons.arrow_back,
-        color: Color(0xFFFFFFFF),
-        size: 24,
       ),
     );
   }

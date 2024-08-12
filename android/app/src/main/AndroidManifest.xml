@@ -2,7 +2,7 @@
     <application
         android:label="neith"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/neith">
         <activity
             android:name=".MainActivity"
             android:exported="true"

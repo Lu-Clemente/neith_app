@@ -6,6 +6,7 @@ class RecommendationsPlacesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: 1,
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),

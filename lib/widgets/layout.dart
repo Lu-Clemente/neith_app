@@ -27,6 +27,7 @@ class Layout extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: appBar,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Platform.isAndroid
           ? SafeArea(
               child: Padding(
