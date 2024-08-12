@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:neith/navigator_keys.dart';
-import 'package:neith/views/auth/login_view.dart';
 import 'package:neith/widgets/layout.dart';
 
 class ProfileView extends StatelessWidget {

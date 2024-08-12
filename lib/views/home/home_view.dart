@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:neith/services/travelplan.dart';
 import 'package:neith/utils/time.dart';
 import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/carousel/recent_travel_plans_carousel.dart';
@@ -29,9 +30,14 @@ class _HomeViewState extends State<HomeView> {
   Future<void> _getUserToken() async {
     final user = _auth.currentUser;
     final userToken = await user?.getIdToken();
+
     setState(() {
       token = userToken!.toString();
     });
+
+    //createTravelPlan('morning', ['Gastronomic'], 2, 5, 9, 17);
+
+    generateTravelPlan('5c1b86ae-ce95-4d31-a627-9f95b913fc4d');
     debugPrint('User Token: $userToken');
   }
 

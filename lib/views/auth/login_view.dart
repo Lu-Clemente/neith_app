@@ -10,7 +10,6 @@ import 'package:neith/widgets/buttons/neith_icon_button.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/inputs/neith_text_field.dart';
 import 'package:neith/views/auth/register_view.dart';
-import 'package:neith/views/home/home_view.dart';
 import 'package:neith/widgets/layout.dart';
 
 class LoginView extends StatefulWidget {

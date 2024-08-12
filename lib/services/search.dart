@@ -37,17 +37,24 @@ class SearchPlace {
   final String name;
   final String shortFormattedAddress;
   final String photoUrl;
+  final String googleMapsUri;
+  List<dynamic> types = [];
 
-  SearchPlace(this.name, this.shortFormattedAddress, this.photoUrl);
+  SearchPlace(this.name, this.shortFormattedAddress, this.photoUrl, this.types,
+      this.googleMapsUri);
 
   SearchPlace.fromJson(Map<String, dynamic> json)
       : name = json['displayName']['text'] as String,
         shortFormattedAddress = json['shortFormattedAddress'],
-        photoUrl = json['photoUrl'];
+        photoUrl = json['photoUrl'],
+        types = json['types'],
+        googleMapsUri = json['googleMapsUri'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
         'shortFormattedAddress': shortFormattedAddress,
-        'photoUrl': photoUrl
+        'photoUrl': photoUrl,
+        'types': types,
+        'googleMapsUri': googleMapsUri
       };
 }

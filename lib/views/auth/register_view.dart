@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:neith/services/user.dart';
 
 import 'package:neith/views/auth/email_confirmation_view.dart';
 import 'package:neith/widgets/buttons/neith_icon_button.dart';
@@ -34,6 +35,9 @@ class RegisterViewState extends State<RegisterView> {
         );
 
         userCredentials.user?.updateDisplayName(_nameController.text.trim());
+        final resultUser =
+            postUser(_nameController.text.trim(), '2000-04-12T00:00:00.000Z');
+        debugPrint('user: $resultUser');
 
         if (mounted) {
           Navigator.push(

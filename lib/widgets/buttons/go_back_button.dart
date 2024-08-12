@@ -12,7 +12,7 @@ class GoBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       child: Center(
         child: Ink(
           decoration: const ShapeDecoration(
