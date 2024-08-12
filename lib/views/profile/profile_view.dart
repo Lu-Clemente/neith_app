@@ -13,10 +13,7 @@ class ProfileView extends StatelessWidget {
   Future<void> _signOut(context) async {
     try {
       await _auth.signOut();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginView()),
-      );
+      Navigator.of(context, rootNavigator: true).pushNamed('/login');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Sign out failed: $e')),

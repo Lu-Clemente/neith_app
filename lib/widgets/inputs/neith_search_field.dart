@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class NeithSearchField extends StatefulWidget {
   final TextEditingController controller;
-  final void Function(String value) onPressed;
+  final void Function(String value) onFieldSubmitted;
   const NeithSearchField(
-      {super.key, required this.controller, required this.onPressed});
+      {super.key, required this.controller, required this.onFieldSubmitted});
 
   @override
   NeithSearchFieldState createState() => NeithSearchFieldState();
@@ -22,7 +22,7 @@ class NeithSearchFieldState extends State<NeithSearchField> {
       ),
       child: TextFormField(
         controller: widget.controller,
-        onFieldSubmitted: (value) => widget.onPressed(value),
+        onFieldSubmitted: (value) => widget.onFieldSubmitted(value),
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(
             labelText: 'Search',
@@ -38,7 +38,8 @@ class NeithSearchFieldState extends State<NeithSearchField> {
               left: 14,
             ),
             suffixIcon: IconButton(
-                onPressed: () => widget.onPressed(widget.controller.value.text),
+                onPressed: () =>
+                    widget.onFieldSubmitted(widget.controller.value.text),
                 icon: const Icon(Icons.search))),
         style: const TextStyle(
           fontSize: 16,

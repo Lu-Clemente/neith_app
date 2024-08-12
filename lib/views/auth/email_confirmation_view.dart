@@ -43,12 +43,7 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
   _handleEmailVerification() async {
     bool isVerified = await _checkEmailVerified();
     if (isVerified) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomeView(),
-        ),
-      );
+      Navigator.pushReplacementNamed(context, '/');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Email not verified')),
@@ -58,11 +53,7 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
 
   void _navigateToHome() {
     _timer?.cancel(); // Stop the timer once the user is verified
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const HomeView(),
-      ),
-    );
+    Navigator.pushReplacementNamed(context, '/');
   }
 
   void _startVerificationCheck() {

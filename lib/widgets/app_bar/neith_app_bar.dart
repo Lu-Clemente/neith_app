@@ -72,6 +72,7 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
         leadingWidth: 40,
         toolbarHeight: 50,
         automaticallyImplyLeading: showBackButton,
+        forceMaterialTransparency: true,
         title: _renderLabel(),
         centerTitle: centerTitle,
         actions: [

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class NeithTextField extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
+  final TextInputAction textInputAction;
   final String? Function(String?)? validator;
   final bool? isPassword;
 
@@ -14,6 +15,7 @@ class NeithTextField extends StatefulWidget {
     required this.labelText,
     this.validator,
     this.isPassword = false,
+    this.textInputAction = TextInputAction.done,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,6 @@ class _NeithTextFieldState extends State<NeithTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(16),
@@ -40,6 +41,7 @@ class _NeithTextFieldState extends State<NeithTextField> {
       ),
       child: TextFormField(
         controller: widget.controller,
+        textInputAction: widget.textInputAction,
         decoration: InputDecoration(
           labelText: widget.labelText,
           labelStyle: const TextStyle(
@@ -48,11 +50,6 @@ class _NeithTextFieldState extends State<NeithTextField> {
           fillColor: const Color(0xFFF2F2F2),
           filled: true,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.only(
-            bottom: 0.0,
-            top: 1.0,
-            left: 14,
-          ),
           suffixIcon: widget.isPassword!
               ? IconButton(
                   icon: Icon(

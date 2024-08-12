@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neith/navigator_keys.dart';
 import 'package:neith/tab_item_widget.dart';
+import 'package:neith/views/auth/login_view.dart';
 import 'package:neith/views/auth/reset_password_view.dart';
 import 'package:neith/views/home/home_view.dart';
 import 'package:neith/views/index_view.dart';
@@ -42,5 +43,6 @@ get tabs => [
 
 Map<String, WidgetBuilder> get routes => {
       '/': (context) => const IndexView(),
+      '/login': (context) => const LoginView(),
       '/profile/reset_password': (context) => const ResetPasswordView(),
     };

@@ -1,11 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
 import 'services/auth.dart';
-import 'views/auth/email_confirmation_view.dart';
-import 'views/auth/login_view.dart';
-import 'views/home/home_view.dart';
 import 'views/auth/auth_provider.dart';
 
 import 'navigator_keys.dart';
@@ -30,7 +28,7 @@ class MainApp extends StatelessWidget {
         title: 'Neith',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: const Color(0xFF7BA6EF),
+            primary: const Color.fromRGBO(123, 166, 239, 1),
             secondary: const Color(0xFF1F1B59),
             surface: const Color.fromARGB(255, 255, 255, 255),
           ),
@@ -38,40 +36,10 @@ class MainApp extends StatelessWidget {
         ),
         navigatorKey: NavigatorKeys.navigatorKeyMain,
         routes: routes,
-        initialRoute: '/',
+        initialRoute: firebase_auth.FirebaseAuth.instance.currentUser == null
+            ? '/login'
+            : '/',
       ),
     );
-  }
-}
-
-class HomeController extends StatelessWidget {
-  const HomeController({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final AuthService auth = AuthProvider.of(context)!.auth;
-
-    return StreamBuilder(
-        stream: auth.onAuthStateChanged,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.active) {
-            final user = snapshot.data;
-            if (user == null) {
-              return const LoginView();
-            } else {
-              if (!user.emailVerified) {
-                return EmailConfirmationView(user: user);
-              } else {
-                return const HomeView();
-              }
-            }
-          } else {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        });
   }
 }

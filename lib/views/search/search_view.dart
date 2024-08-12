@@ -79,7 +79,7 @@ class SearchViewState extends State<SearchView> {
                     const SizedBox(height: 20),
                     NeithSearchField(
                       controller: _searchController,
-                      onPressed: handleSearchSubmit,
+                      onFieldSubmitted: handleSearchSubmit,
                     ),
                     const SizedBox(height: 16),
                     Row(
