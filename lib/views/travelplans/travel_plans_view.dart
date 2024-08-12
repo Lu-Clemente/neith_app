@@ -13,6 +13,7 @@ class TravelPlansView extends StatefulWidget {
 class _TravelPlansState extends State<TravelPlansView> {
   handleCreateTravelPlan() {
     debugPrint('create new travel plan');
+    Navigator.pushNamed(context, '/wizard');
   }
 
   handleTravelPlanDetailsClick() {

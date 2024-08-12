@@ -37,7 +37,7 @@ class _HomeViewState extends State<HomeView> {
 
     //createTravelPlan('morning', ['Gastronomic'], 2, 5, 9, 17);
 
-    generateTravelPlan('5c1b86ae-ce95-4d31-a627-9f95b913fc4d');
+    //generateTravelPlan('5c1b86ae-ce95-4d31-a627-9f95b913fc4d');
     debugPrint('User Token: $userToken');
   }
 

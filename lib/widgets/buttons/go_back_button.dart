@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class GoBackButton extends StatelessWidget {
-  const GoBackButton({
-    Key? key,
-  }) : super(key: key);
+  final void Function()? onBackButtonPressed;
+  const GoBackButton({Key? key, this.onBackButtonPressed}) : super(key: key);
 
   _goBack(BuildContext context) {
     Navigator.pop(context);
+    debugPrint('onback tá indo ${onBackButtonPressed != null}');
   }
 
   @override
@@ -22,7 +22,9 @@ class GoBackButton extends StatelessWidget {
           child: IconButton(
             icon: const Icon(Icons.arrow_back),
             color: Colors.white,
-            onPressed: () => _goBack(context),
+            onPressed: () => onBackButtonPressed != null
+                ? onBackButtonPressed!()
+                : _goBack(context),
           ),
         ),
       ),
