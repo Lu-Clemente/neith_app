@@ -5,6 +5,7 @@ import 'package:neith/views/auth/login_view.dart';
 import 'package:neith/views/auth/reset_password_view.dart';
 import 'package:neith/views/home/home_view.dart';
 import 'package:neith/views/index_view.dart';
+import 'package:neith/views/profile/notification_view.dart';
 import 'package:neith/views/profile/profile_view.dart';
 import 'package:neith/views/search/search_view.dart';
 import 'package:neith/views/travelplans/travel_plans_view.dart';
@@ -31,11 +32,8 @@ get tabs => [
       TabItemWidget(
         routes: {
           '/': (BuildContext context) => ProfileView(),
-          '/profile/notifications': (BuildContext context) => const Scaffold(
-                body: Center(
-                  child: Text('Notifications'),
-                ),
-              ),
+          '/profile/notifications': (BuildContext context) =>
+              const NotificationView(),
         },
         navigatorKey: NavigatorKeys.navigatorKeyProfile,
       ),
@@ -45,4 +43,6 @@ Map<String, WidgetBuilder> get routes => {
       '/': (context) => const IndexView(),
       '/login': (context) => const LoginView(),
       '/profile/reset_password': (context) => const ResetPasswordView(),
+      '/profile/notifications': (BuildContext context) =>
+          const NotificationView(),
     };

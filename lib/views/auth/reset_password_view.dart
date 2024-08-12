@@ -32,7 +32,8 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
             const SnackBar(content: Text('Password reset successful')),
           );
           await Future.delayed(const Duration(seconds: 2));
-          Navigator.pushReplacementNamed(context, '/');
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/', (Route<dynamic> route) => false);
         }
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(

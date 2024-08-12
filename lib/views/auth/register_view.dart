@@ -19,6 +19,7 @@ class RegisterView extends StatefulWidget {
 
 class RegisterViewState extends State<RegisterView> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordConfirmationController = TextEditingController();
@@ -31,6 +32,9 @@ class RegisterViewState extends State<RegisterView> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+
+        userCredentials.user?.updateDisplayName(_nameController.text.trim());
+
         if (mounted) {
           Navigator.push(
             context,
@@ -78,8 +82,21 @@ class RegisterViewState extends State<RegisterView> {
                 ),
                 const SizedBox(height: 20),
                 NeithTextField(
+                  controller: _nameController,
+                  labelText: 'Name',
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                NeithTextField(
                   controller: _emailController,
                   labelText: 'Email',
+                  textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
@@ -90,6 +107,7 @@ class RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 20),
                 NeithTextField(
                   controller: _passwordController,
+                  textInputAction: TextInputAction.next,
                   labelText: 'Password',
                   isPassword: true,
                   validator: (value) {
@@ -102,6 +120,7 @@ class RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 20),
                 NeithTextField(
                   controller: _passwordConfirmationController,
+                  textInputAction: TextInputAction.done,
                   labelText: 'Confirm Password',
                   isPassword: true,
                   validator: (value) {

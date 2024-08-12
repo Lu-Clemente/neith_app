@@ -43,7 +43,8 @@ class LoginViewState extends State<LoginView> {
               ),
             );
           } else {
-            Navigator.pushReplacementNamed(context, '/');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/', (Route<dynamic> route) => false);
           }
         }
       } on FirebaseAuthException catch (e) {

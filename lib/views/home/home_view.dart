@@ -16,10 +16,14 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String token = '';
+  String userName = '';
 
-  String _getUser() {
-    final user = _auth.currentUser;
-    return user?.displayName ?? 'dear user';
+  void _getUser() {
+    FirebaseAuth.instance.userChanges().listen((User? user) {
+      setState(() {
+        userName = user == null ? '' : user.displayName.toString();
+      });
+    });
   }
 
   Future<void> _getUserToken() async {
@@ -45,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
+    _getUser();
   }
 
   @override
@@ -55,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
             NeithAppBarAction.notifications,
           ],
           showBackButton: false,
-          title: 'Welcome, ${_getUser()}!',
+          title: 'Welcome, $userName!',
           subtitle: 'Today, ${getTodayDate()}',
         ),
         body: SingleChildScrollView(
