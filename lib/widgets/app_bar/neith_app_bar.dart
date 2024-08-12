@@ -62,7 +62,11 @@ class NeithAppBar extends StatelessWidget implements PreferredSizeWidget {
         vertical: 10.0,
       ),
       child: AppBar(
-        leading: showBackButton ? const GoBackButton() : null,
+        leading: showBackButton
+            ? GoBackButton(
+                onBackButtonPressed: onBackButtonPressed,
+              )
+            : null,
         leadingWidth: 40,
         toolbarHeight: 50,
         automaticallyImplyLeading: showBackButton,

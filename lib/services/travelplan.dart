@@ -40,7 +40,7 @@ Future<void> createTravelPlan(
     final resFormatted = jsonDecode(response.body);
     debugPrint(resFormatted);
   } else {
-    throw Exception('failed to create user');
+    throw Exception('failed to create travel plan');
   }
 }
 
@@ -62,6 +62,71 @@ Future<void> generateTravelPlan(String planId) async {
     final resFormatted = jsonDecode(response.body);
     debugPrint(resFormatted);
   } else {
-    throw Exception('failed to create user');
+    throw Exception('failed to generate planId $planId');
+  }
+}
+
+Future<void> startTravelPlan(String planId) async {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final user = auth.currentUser;
+  final userToken = await user?.getIdToken();
+
+  Map<String, String> requestHeaders = {
+    'Authorization': 'Bearer ${userToken.toString()}',
+    'Accept': 'application/json',
+    'Content-type': 'application/json'
+  };
+
+  final response = await http.post(Uri.parse('$apiUrl/$planId/start'),
+      headers: requestHeaders);
+
+  if (response.statusCode == 200) {
+    final resFormatted = jsonDecode(response.body);
+    debugPrint(resFormatted);
+  } else {
+    throw Exception('failed to start planId $planId');
+  }
+}
+
+Future<void> finishTravelPlan(String planId) async {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final user = auth.currentUser;
+  final userToken = await user?.getIdToken();
+
+  Map<String, String> requestHeaders = {
+    'Authorization': 'Bearer ${userToken.toString()}',
+    'Accept': 'application/json',
+    'Content-type': 'application/json'
+  };
+
+  final response = await http.post(Uri.parse('$apiUrl/$planId/finish'),
+      headers: requestHeaders);
+
+  if (response.statusCode == 200) {
+    final resFormatted = jsonDecode(response.body);
+    debugPrint(resFormatted);
+  } else {
+    throw Exception('failed to finish planId $planId');
+  }
+}
+
+Future<void> getTravelPlans() async {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final user = auth.currentUser;
+  final userToken = await user?.getIdToken();
+
+  Map<String, String> requestHeaders = {
+    'Authorization': 'Bearer ${userToken.toString()}',
+    'Accept': 'application/json',
+    'Content-type': 'application/json'
+  };
+
+  final response = await http.get(Uri.parse(apiUrl), headers: requestHeaders);
+
+  if (response.statusCode == 200) {
+    final resFormatted = jsonDecode(response.body);
+    debugPrint(resFormatted);
+  } else {
+    throw Exception('failed to get travel plans');
   }
 }
