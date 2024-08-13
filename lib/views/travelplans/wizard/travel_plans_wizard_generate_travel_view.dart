@@ -1,37 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/layout.dart';
-import 'package:wizard_router/wizard_router.dart';
 
-class TravelPlansWizardGenerateTravelView extends StatelessWidget {
+class TravelPlansWizardGenerateTravelView extends StatefulWidget {
   const TravelPlansWizardGenerateTravelView({super.key});
 
-  _handleWizardNext(BuildContext context) {
-    Wizard.of(context).next();
-  }
+  @override
+  State<StatefulWidget> createState() =>
+      TravelPlansWizardGenerateTravelViewState();
+}
 
+class TravelPlansWizardGenerateTravelViewState
+    extends State<TravelPlansWizardGenerateTravelView> {
+  bool isLoading = true;
   @override
   Widget build(BuildContext context) {
-    return const Layout(
-      appBar: NeithAppBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
+    return PopScope(
+      canPop: false,
+      child: Layout(
+        body: Center(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Generate Travel View',
-                style: TextStyle(
-                    color: Color.fromRGBO(31, 27, 89, 1),
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600),
-              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Image(
+                      height: 192,
+                      image: AssetImage('assets/generating-travel-plan.png')),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Generating your travel plan...',
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  isLoading
+                      ? const Column(
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Packing your things...',
+                              style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(height: 40),
+                          ],
+                        )
+                      : NeithTextButton(
+                          onPressed: () => {}, label: 'Let\'s start!')
+                ],
+              )
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

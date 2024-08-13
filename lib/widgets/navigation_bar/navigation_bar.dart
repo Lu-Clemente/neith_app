@@ -14,6 +14,7 @@ class NavigationBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       currentIndex: controller.currentTab,
       onTap: (int index) => onItemTapped(index),
       type: BottomNavigationBarType.fixed,

@@ -105,6 +105,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.17.4"
+  flow_builder:
+    dependency: transitive
+    description:
+      name: flow_builder
+      sha256: e5f7c0fbff5ac9c4c65728939e00d96c288e2a482ec740d2d57562d7e918e5f2
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.10"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -224,6 +232,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  safe_change_notifier:
+    dependency: transitive
+    description:
+      name: safe_change_notifier
+      sha256: "8d0645ec2706f580912c38de488439ddb491be48247826927b7bc2e54ea8f7af"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -245,6 +261,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
+  state_notifier:
+    dependency: transitive
+    description:
+      name: state_notifier
+      sha256: b8677376aa54f2d7c58280d5a007f9e8774f1968d1fb1c096adcb4792fba29bb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   stream_channel:
     dependency: transitive
     description:
@@ -373,6 +397,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
+  wizard_router:
+    dependency: "direct main"
+    description:
+      name: wizard_router
+      sha256: d0111e4ef486a3abe7d14930b7485c04df1dc41dbfe70ace136ea4c7d4cd5b51
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
 sdks:
   dart: ">=3.4.0 <4.0.0"
   flutter: ">=3.22.0"

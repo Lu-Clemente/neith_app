@@ -22,10 +22,10 @@ class TravelPlansWizardView extends StatelessWidget {
               builder: (context) => const TravelPlansWizardSearchView()),
           '/interests': WizardRoute(
               builder: (context) => const TravelPlansWizardInterestsView()),
-          '/time': WizardRoute(
-              builder: (context) => const TravelPlansWizardTimeView()),
+          '/time':
+              WizardRoute(builder: (context) => TravelPlansWizardTimeView()),
           '/more-details': WizardRoute(
-              builder: (context) => const TravelPlansWizardMoreDetailsView()),
+              builder: (context) => TravelPlansWizardMoreDetailsView()),
           '/generate': WizardRoute(
               builder: (context) =>
                   const TravelPlansWizardGenerateTravelView()),

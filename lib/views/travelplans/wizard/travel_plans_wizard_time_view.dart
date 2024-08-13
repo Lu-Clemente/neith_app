@@ -5,7 +5,7 @@ import 'package:neith/widgets/layout.dart';
 import 'package:wizard_router/wizard_router.dart';
 
 class TravelPlansWizardTimeView extends StatelessWidget {
-  const TravelPlansWizardTimeView({super.key});
+  TravelPlansWizardTimeView({super.key});
 
   _handleWizardNext(BuildContext context) {
     Wizard.of(context).next();
@@ -15,25 +15,39 @@ class TravelPlansWizardTimeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Layout(
       appBar: const NeithAppBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text(
-                'Time View',
-                style: TextStyle(
-                    color: Color.fromRGBO(31, 27, 89, 1),
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600),
-              ),
-              NeithTextButton(
-                  onPressed: () => _handleWizardNext(context), label: 'Next')
-            ],
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  'What time you want?',
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'Select your preferred times to see the things and everything',
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 40),
+                NeithTextButton(
+                    onPressed: () => _handleWizardNext(context),
+                    label: 'Continue'),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -3,7 +3,6 @@ import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/inputs/neith_select_field.dart';
 import 'package:neith/widgets/inputs/neith_switcher.dart';
-import 'package:neith/widgets/inputs/neith_text_field.dart';
 import 'package:neith/widgets/layout.dart';
 
 class MoreInformation extends StatefulWidget {
@@ -81,7 +80,7 @@ class _MoreInformationState extends State<MoreInformation> {
                 ),
                 const SizedBox(height: 20),
                 NeithSwitchField(
-                  controller: SwitchController(false),
+                  controller: _mobilityRestrictionsController,
                   labelText: 'Do you have mobility restrictions?',
                 ),
                 const SizedBox(height: 20),
