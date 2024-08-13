@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:neith/services/travelplan.dart';
 import 'package:neith/utils/time.dart';
 import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/carousel/recent_travel_plans_carousel.dart';
@@ -35,9 +34,11 @@ class _HomeViewState extends State<HomeView> {
       token = userToken!.toString();
     });
 
-    //createTravelPlan('morning', ['Gastronomic'], 2, 5, 9, 17);
+    //createTravelPlan('morning', ['Eco-turism'], 4, 5, 8, 18);
 
-    //generateTravelPlan('5c1b86ae-ce95-4d31-a627-9f95b913fc4d');
+    //generateTravelPlan('f44a1f7f-46da-4171-a7a2-77cedf2aab81');
+    //startTravelPlan('f44a1f7f-46da-4171-a7a2-77cedf2aab81');
+    //finishTravelPlan('f44a1f7f-46da-4171-a7a2-77cedf2aab81');
     debugPrint('User Token: $userToken');
   }
 
