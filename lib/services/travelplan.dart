@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 const apiUrl =
@@ -24,21 +22,20 @@ Future<void> createTravelPlan(
     'Content-type': 'application/json'
   };
 
-  final response =
-      await http.post(Uri.parse('$apiUrl/4e827457-e718-417f-b4ea-a3918936be31'),
-          headers: requestHeaders,
-          body: jsonEncode(<String, dynamic>{
-            'preferredTime': preferredTime,
-            'tourismTypes': tourismTypes,
-            'travelerCount': travelerCount,
-            'travelDuration': travelDuration,
-            'arrivalHour': arrivalHour,
-            'departureHour': departureHour,
-          }));
+  final response = await http.post(Uri.parse(apiUrl),
+      headers: requestHeaders,
+      body: jsonEncode(<String, dynamic>{
+        'preferredTime': preferredTime,
+        'tourismTypes': tourismTypes,
+        'travelerCount': travelerCount,
+        'travelDuration': travelDuration,
+        'arrivalHour': arrivalHour,
+        'departureHour': departureHour,
+      }));
 
   if (response.statusCode == 200) {
-    final resFormatted = jsonDecode(response.body);
-    debugPrint(resFormatted);
+    //final resFormatted = jsonDecode(response.body);
+    //debugPrint(resFormatted);
   } else {
     throw Exception('failed to create travel plan');
   }
@@ -59,8 +56,8 @@ Future<void> generateTravelPlan(String planId) async {
       headers: requestHeaders);
 
   if (response.statusCode == 200) {
-    final resFormatted = jsonDecode(response.body);
-    debugPrint(resFormatted);
+    /* final resFormatted = jsonDecode(response.body);
+    debugPrint(resFormatted); */
   } else {
     throw Exception('failed to generate planId $planId');
   }
@@ -81,8 +78,8 @@ Future<void> startTravelPlan(String planId) async {
       headers: requestHeaders);
 
   if (response.statusCode == 200) {
-    final resFormatted = jsonDecode(response.body);
-    debugPrint(resFormatted);
+    /*   final resFormatted = jsonDecode(response.body);
+    debugPrint(resFormatted); */
   } else {
     throw Exception('failed to start planId $planId');
   }
@@ -103,14 +100,14 @@ Future<void> finishTravelPlan(String planId) async {
       headers: requestHeaders);
 
   if (response.statusCode == 200) {
-    final resFormatted = jsonDecode(response.body);
-    debugPrint(resFormatted);
+    /*  final resFormatted = jsonDecode(response.body);
+    debugPrint(resFormatted); */
   } else {
     throw Exception('failed to finish planId $planId');
   }
 }
 
-Future<void> getTravelPlans() async {
+Future<Iterable<TravelPlan>> getTravelPlans() async {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final user = auth.currentUser;
   final userToken = await user?.getIdToken();
@@ -124,9 +121,91 @@ Future<void> getTravelPlans() async {
   final response = await http.get(Uri.parse(apiUrl), headers: requestHeaders);
 
   if (response.statusCode == 200) {
-    final resFormatted = jsonDecode(response.body);
-    debugPrint(resFormatted);
+    final resFormatted = jsonDecode(response.body) as List<dynamic>;
+
+    final Iterable<TravelPlan> travelPlanFormatted = resFormatted.isNotEmpty
+        ? resFormatted.map((el) => TravelPlan.fromJson(el))
+        : [];
+
+    return travelPlanFormatted;
   } else {
     throw Exception('failed to get travel plans');
   }
+}
+
+class TravelPlan {
+  final String id;
+  final String name;
+  final int departureHour;
+  final String preferredTime;
+  final int travelerCount;
+  final int travelDuration;
+  final int arrivalHour;
+  final List<dynamic> tourismTypes;
+  final String userId;
+  final List<dynamic>? tips;
+  final Map<String, dynamic>? plan;
+  final int? startDate;
+  final int? endDate;
+
+  TravelPlan(
+      this.id,
+      this.name,
+      this.departureHour,
+      this.preferredTime,
+      this.travelerCount,
+      this.travelDuration,
+      this.arrivalHour,
+      this.tourismTypes,
+      this.userId,
+      this.tips,
+      this.plan,
+      this.startDate,
+      this.endDate);
+
+  TravelPlan.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as String,
+        name = json['name'],
+        departureHour = json['departureHour'],
+        preferredTime = json['preferredTime'],
+        travelerCount = json['travelerCount'],
+        travelDuration = json['travelDuration'],
+        arrivalHour = json['arrivalHour'],
+        tourismTypes = json['tourismTypes'],
+        userId = json['userId'],
+        tips = json['tips'],
+        plan = json['plan'],
+        startDate =
+            json['startDate'] != null ? json['startDate']['_seconds'] : null,
+        endDate = json['endDate'] != null ? json['endDate']['_seconds'] : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'departureHour': departureHour,
+        'preferredTime': preferredTime,
+        'travelerCount': travelerCount,
+        'travelDuration': travelDuration,
+        'arrivalHour': arrivalHour,
+        'tourismTypes': tourismTypes,
+        'userId': userId,
+        'tips': tips,
+        'plan': plan,
+        'startDate': startDate,
+        'endDate': endDate
+      };
+}
+
+class TravelPlanSchedule {
+  final String activity;
+  final String location;
+  final String time;
+
+  TravelPlanSchedule(this.activity, this.location, this.time);
+}
+
+class TravelPlanDay {
+  final List<TravelPlanSchedule> days;
+
+  TravelPlanDay(this.days);
 }
