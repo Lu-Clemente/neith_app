@@ -19,8 +19,11 @@ class _TravelPlansState extends State<TravelPlansView> {
     Navigator.pushNamed(context, '/wizard');
   }
 
-  handleTravelPlanDetailsClick() {
-    debugPrint('see travel plan details');
+  handleTravelPlanDetailsClick({String? name, String? travelDuration}) {
+    Navigator.pushNamed(context, '/details', arguments: {
+      'name': name,
+      'travelDuration': travelDuration,
+    });
   }
 
   @override
@@ -77,7 +80,11 @@ class _TravelPlansState extends State<TravelPlansView> {
                           children: snapshot.data!.map((el) {
                             if (el.startDate != null && el.endDate == null) {
                               return TravelPlanCardListItem(
-                                  onPressed: handleTravelPlanDetailsClick,
+                                  onPressed: () => handleTravelPlanDetailsClick(
+                                        name: el.name,
+                                        travelDuration:
+                                            el.travelDuration.toString(),
+                                      ),
                                   name: el.name,
                                   description: el.tourismTypes.join(', '),
                                   photoUrl:
@@ -106,7 +113,11 @@ class _TravelPlansState extends State<TravelPlansView> {
                           children: snapshot.data!.map((el) {
                             if (el.startDate == null) {
                               return TravelPlanCardListItem(
-                                  onPressed: handleTravelPlanDetailsClick,
+                                  onPressed: () => handleTravelPlanDetailsClick(
+                                        name: el.name,
+                                        travelDuration:
+                                            el.travelDuration.toString(),
+                                      ),
                                   name: el.name,
                                   description: el.tourismTypes.join(', '),
                                   photoUrl:
@@ -135,7 +146,11 @@ class _TravelPlansState extends State<TravelPlansView> {
                           children: snapshot.data!.map((el) {
                             if (el.endDate != null) {
                               return TravelPlanCardListItem(
-                                  onPressed: handleTravelPlanDetailsClick,
+                                  onPressed: () => handleTravelPlanDetailsClick(
+                                        name: el.name,
+                                        travelDuration:
+                                            el.travelDuration.toString(),
+                                      ),
                                   name: el.name,
                                   description: el.tourismTypes.join(', '),
                                   photoUrl:
