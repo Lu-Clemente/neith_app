@@ -26,11 +26,11 @@ To run Neith locally on your machine, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/neith.git
+   git clone https://github.com/Lu-Clemente/neith_app.git
    ```
 2. **Navigate to the project directory:**
    ```bash
-   cd neith
+   cd neith_app
    ```
 3. **Install dependencies:**
    Ensure you have Flutter installed. Then, run the following command:
