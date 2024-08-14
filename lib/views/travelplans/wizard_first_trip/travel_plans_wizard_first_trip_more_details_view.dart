@@ -5,8 +5,8 @@ import 'package:neith/widgets/inputs/neith_text_field.dart';
 import 'package:neith/widgets/layout.dart';
 import 'package:wizard_router/wizard_router.dart';
 
-class TravelPlansWizardMoreDetailsView extends StatelessWidget {
-  TravelPlansWizardMoreDetailsView({super.key});
+class TravelPlansWizardFirstTripMoreDetailsView extends StatelessWidget {
+  TravelPlansWizardFirstTripMoreDetailsView({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final _peopleCountController = TextEditingController();

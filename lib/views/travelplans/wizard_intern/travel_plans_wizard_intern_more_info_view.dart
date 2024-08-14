@@ -6,7 +6,7 @@ import 'package:neith/widgets/inputs/neith_switcher.dart';
 import 'package:neith/widgets/layout.dart';
 import 'package:wizard_router/wizard_router.dart';
 
-class TravelPlansWizardMoreInfoView extends StatelessWidget {
+class TravelPlansWizardInternMoreInfoView extends StatelessWidget {
   final BuildContext parentContext;
   final bool showAppBar = true;
   final _formKey = GlobalKey<FormState>();
@@ -20,7 +20,7 @@ class TravelPlansWizardMoreInfoView extends StatelessWidget {
     'None',
   );
 
-  TravelPlansWizardMoreInfoView({super.key, required this.parentContext});
+  TravelPlansWizardInternMoreInfoView({super.key, required this.parentContext});
 
   _handleWizardNext(BuildContext context) {
     Wizard.of(context).next(arguments: {

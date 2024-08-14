@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/layout.dart';
 
-class TravelPlansWizardGenerateTravelView extends StatefulWidget {
-  const TravelPlansWizardGenerateTravelView({super.key});
+class TravelPlansWizardFirstTripGenerateTravelView extends StatefulWidget {
+  const TravelPlansWizardFirstTripGenerateTravelView({super.key});
 
   @override
   State<StatefulWidget> createState() =>
-      TravelPlansWizardGenerateTravelViewState();
+      TravelPlansWizardFirstTripGenerateTravelViewState();
 }
 
-class TravelPlansWizardGenerateTravelViewState
-    extends State<TravelPlansWizardGenerateTravelView> {
+class TravelPlansWizardFirstTripGenerateTravelViewState
+    extends State<TravelPlansWizardFirstTripGenerateTravelView> {
   bool isLoading = true;
   @override
   Widget build(BuildContext context) {

@@ -28,7 +28,7 @@ class NeithSwitchField extends StatelessWidget {
               onChanged: (newValue) {
                 controller.value = newValue;
               },
-              trackOutlineColor: MaterialStateProperty.all(Colors.transparent),
+              trackOutlineColor: WidgetStateProperty.all(Colors.transparent),
               activeColor: const Color(0xFF7BA6EF),
               inactiveTrackColor: const Color(0xFFE5E5E5),
             ),

@@ -5,8 +5,8 @@ import 'package:neith/widgets/inputs/neith_multi_select_field.dart';
 import 'package:neith/widgets/layout.dart';
 import 'package:wizard_router/wizard_router.dart';
 
-class TravelPlansWizardInterestsView extends StatelessWidget {
-  const TravelPlansWizardInterestsView({super.key});
+class TravelPlansWizardFirstTripInterestsView extends StatelessWidget {
+  const TravelPlansWizardFirstTripInterestsView({super.key});
 
   _handleWizardNext(BuildContext context) {
     Wizard.of(context).next();

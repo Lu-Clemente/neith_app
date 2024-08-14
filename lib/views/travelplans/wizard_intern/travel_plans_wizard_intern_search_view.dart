@@ -5,27 +5,30 @@ import 'package:neith/widgets/layout.dart';
 import 'package:neith/widgets/lists/travel_plan_card_list_item.dart';
 import 'package:wizard_router/wizard_router.dart';
 
-class TravelPlansWizardSearchView extends StatefulWidget {
-  const TravelPlansWizardSearchView({super.key});
+class TravelPlansWizardInternSearchView extends StatefulWidget {
+  final BuildContext parentContext;
+  const TravelPlansWizardInternSearchView(
+      {super.key, required this.parentContext});
 
   @override
-  State<StatefulWidget> createState() => TravelPlansWizardSearchViewState();
+  State<StatefulWidget> createState() =>
+      TravelPlansWizardInternSearchViewState();
 }
 
-class TravelPlansWizardSearchViewState
-    extends State<TravelPlansWizardSearchView> {
-  Map<String, dynamic> something = {};
+class TravelPlansWizardInternSearchViewState
+    extends State<TravelPlansWizardInternSearchView> {
   final _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
-    something = Wizard.of(context).arguments as Map<String, dynamic>;
-    // ...
   }
 
   _handleSearchPlaceSubmit(String value) {}
+
+  _handleWizardBack() {
+    Navigator.of(widget.parentContext).popAndPushNamed('/');
+  }
 
   _handleWizardNext(BuildContext context) {
     Wizard.of(context).next();
@@ -34,7 +37,9 @@ class TravelPlansWizardSearchViewState
   @override
   Widget build(BuildContext context) {
     return Layout(
-      appBar: const NeithAppBar(),
+      appBar: NeithAppBar(
+        onBackButtonPressed: () => _handleWizardBack(),
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
