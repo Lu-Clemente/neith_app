@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:neith/services/travelplan.dart';
 import 'package:neith/utils/number.dart';
 import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
@@ -7,7 +9,11 @@ import 'package:neith/widgets/layout.dart';
 import 'package:wizard_router/wizard_router.dart';
 
 class TravelPlansWizardFirstTripMoreDetailsView extends StatefulWidget {
-  const TravelPlansWizardFirstTripMoreDetailsView({super.key});
+  const TravelPlansWizardFirstTripMoreDetailsView(
+      {super.key, required this.handleWizardState, required this.wizardState});
+
+  final void Function(Map<String, dynamic> value) handleWizardState;
+  final Map<String, dynamic> wizardState;
 
   @override
   State<TravelPlansWizardFirstTripMoreDetailsView> createState() =>
@@ -17,6 +23,7 @@ class TravelPlansWizardFirstTripMoreDetailsView extends StatefulWidget {
 class _TravelPlansWizardFirstTripMoreDetailsViewState
     extends State<TravelPlansWizardFirstTripMoreDetailsView> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _peopleCountController = TextEditingController();
   final _daysController = TextEditingController();
   final _arrivalTimeController = TextEditingController();
@@ -24,10 +31,45 @@ class _TravelPlansWizardFirstTripMoreDetailsViewState
   final TimeOfDay _selectedTimeArrival = const TimeOfDay(hour: 0, minute: 0);
   final TimeOfDay _selectedTimeDeparture = const TimeOfDay(hour: 0, minute: 0);
 
-  _handleWizardNext(BuildContext context) {
+  _handleWizardNext(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
-      Wizard.of(context).next();
+      widget.handleWizardState({
+        "name": _nameController.text,
+        "travelerCount": int.parse(_peopleCountController.text),
+        "travelDuration": int.parse(_daysController.text),
+        "arrivalHour":
+            DateFormat('kk a').parse(_arrivalTimeController.text).hour,
+        "departureHour":
+            DateFormat('kk a').parse(_departureTimeController.text).hour
+      });
+
+      final res = await createTravelPlan(
+          widget.wizardState['name'],
+          'morning',
+          widget.wizardState['tourismTypes'],
+          widget.wizardState['travelerCount'],
+          widget.wizardState['travelDuration'],
+          widget.wizardState['arrivalHour'],
+          widget.wizardState['departureHour']);
+
+      if (context.mounted && res.id!.isNotEmpty) {
+        widget.wizardState.clear();
+        widget.handleWizardState({"createdId": res.id});
+        Wizard.of(context).next();
+      }
     }
+  }
+
+  _handleWizardBack(BuildContext context) {
+    widget.handleWizardState({
+      "name": _nameController.text,
+      "travelerCount": int.tryParse(_peopleCountController.text) ?? 0,
+      "travelDuration": int.tryParse(_daysController.text) ?? 0,
+      "arrivalHour": DateFormat('kk a').parse(_arrivalTimeController.text).hour,
+      "departureHour":
+          DateFormat('kk a').parse(_departureTimeController.text).hour
+    });
+    Wizard.of(context).back();
   }
 
   void _selectTime(BuildContext context, TextEditingController controller,
@@ -52,9 +94,47 @@ class _TravelPlansWizardFirstTripMoreDetailsViewState
   }
 
   @override
+  void initState() {
+    super.initState();
+    int arrivalTimeValue = widget.wizardState.containsKey('arrivalHour')
+        ? widget.wizardState['arrivalHour'] + 1
+        : 0;
+
+    int departureTimeValue = widget.wizardState.containsKey('departureHour')
+        ? widget.wizardState['departureHour'] + 1
+        : 0;
+
+    _nameController.value = TextEditingValue(
+        text: widget.wizardState.containsKey('name')
+            ? widget.wizardState['name']
+            : '');
+    _peopleCountController.value = TextEditingValue(
+        text: widget.wizardState.containsKey('travelerCount')
+            ? widget.wizardState['travelerCount'].toString()
+            : '');
+    _daysController.value = TextEditingValue(
+        text: widget.wizardState.containsKey('travelDuration')
+            ? widget.wizardState['travelDuration'].toString()
+            : '');
+    _arrivalTimeController.value = TextEditingValue(
+        text: DateFormat('h a')
+            .format(DateTime.parse(
+                DateFormat('H').parse(arrivalTimeValue.toString()).toString()))
+            .toString());
+
+    _departureTimeController.value = TextEditingValue(
+        text: DateFormat('h a')
+            .format(DateTime.parse(DateFormat('H')
+                .parse(departureTimeValue.toString())
+                .toString()))
+            .toString());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Layout(
-      appBar: const NeithAppBar(),
+      appBar:
+          NeithAppBar(onBackButtonPressed: () => _handleWizardBack(context)),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,6 +167,20 @@ class _TravelPlansWizardFirstTripMoreDetailsViewState
                     key: _formKey,
                     child: Column(
                       children: [
+                        NeithTextField(
+                          controller: _nameController,
+                          textInputType: TextInputType.text,
+                          labelText: 'Travel plan name',
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a name';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         NeithTextField(
                           controller: _peopleCountController,
                           textInputType: TextInputType.number,

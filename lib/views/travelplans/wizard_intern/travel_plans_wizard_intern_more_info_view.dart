@@ -10,6 +10,8 @@ class TravelPlansWizardInternMoreInfoView extends StatelessWidget {
   final BuildContext parentContext;
   final bool showAppBar = true;
   final _formKey = GlobalKey<FormState>();
+  final void Function(Map<String, dynamic> value) handleWizardState;
+
   final SwitchController _mobilityRestrictionsController = SwitchController(
     false,
   );
@@ -20,14 +22,21 @@ class TravelPlansWizardInternMoreInfoView extends StatelessWidget {
     'None',
   );
 
-  TravelPlansWizardInternMoreInfoView({super.key, required this.parentContext});
+  TravelPlansWizardInternMoreInfoView(
+      {super.key,
+      required this.parentContext,
+      required this.handleWizardState});
 
   _handleWizardNext(BuildContext context) {
-    Wizard.of(context).next(arguments: {
-      'mobilityRestrictions': _mobilityRestrictionsController.value,
-      'dietaryRestrictions': _dietaryRestrictionsController.value,
-      'disabilities': _disabilitiesController.value
+    handleWizardState({
+      "tourismTypes": {
+        'mobilityRestrictions': _mobilityRestrictionsController.value,
+        'dietaryRestrictions': _dietaryRestrictionsController.value,
+        'disabilities': _disabilitiesController.value
+      }
     });
+
+    Wizard.of(context).next();
   }
 
   _handleWizardBack() {

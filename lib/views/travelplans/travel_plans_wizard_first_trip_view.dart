@@ -7,8 +7,25 @@ import 'package:neith/views/travelplans/wizard_first_trip/travel_plans_wizard_fi
 import 'package:neith/views/travelplans/wizard_first_trip/travel_plans_wizard_first_trip_time_view.dart';
 import 'package:wizard_router/wizard_router.dart';
 
-class TravelPlansWizardFirstTripView extends StatelessWidget {
+class TravelPlansWizardFirstTripView extends StatefulWidget {
   const TravelPlansWizardFirstTripView({super.key});
+
+  @override
+  State<TravelPlansWizardFirstTripView> createState() =>
+      TravelPlansWizardFirstTripViewState();
+}
+
+class TravelPlansWizardFirstTripViewState
+    extends State<TravelPlansWizardFirstTripView> {
+  final Map<String, dynamic> wizardState = {};
+
+  void handleWizardState(Map<String, dynamic> value) {
+    setState(() {
+      wizardState.addAll(value);
+      debugPrint(wizardState.keys.toString());
+      debugPrint(wizardState.values.toString());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +34,34 @@ class TravelPlansWizardFirstTripView extends StatelessWidget {
         routes: {
           '/more-info': WizardRoute(
               builder: (bla) => TravelPlansWizardFirstTripMoreInfoView(
-                  parentContext: context)),
+                    parentContext: context,
+                    handleWizardState: handleWizardState,
+                    wizardState: wizardState,
+                  )),
           '/search': WizardRoute(
               builder: (context) =>
                   const TravelPlansWizardFirstTripSearchView()),
           '/interests': WizardRoute(
-              builder: (context) =>
-                  const TravelPlansWizardFirstTripInterestsView()),
+              builder: (context) => TravelPlansWizardFirstTripInterestsView(
+                    handleWizardState: handleWizardState,
+                    wizardState: wizardState,
+                  )),
           '/time': WizardRoute(
-              builder: (context) => const TravelPlansWizardFirstTripTimeView()),
+              builder: (context) => TravelPlansWizardFirstTripTimeView(
+                    handleWizardState: handleWizardState,
+                    wizardState: wizardState,
+                  )),
           '/more-details': WizardRoute(
-              builder: (context) =>
-                  const TravelPlansWizardFirstTripMoreDetailsView()),
+              builder: (context) => TravelPlansWizardFirstTripMoreDetailsView(
+                    handleWizardState: handleWizardState,
+                    wizardState: wizardState,
+                  )),
           '/generate': WizardRoute(
               builder: (context) =>
-                  const TravelPlansWizardFirstTripGenerateTravelView()),
+                  TravelPlansWizardFirstTripGenerateTravelView(
+                    parentContext: context,
+                    wizardState: wizardState,
+                  )),
         },
       ),
     );

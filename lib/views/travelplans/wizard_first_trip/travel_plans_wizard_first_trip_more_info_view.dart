@@ -5,8 +5,24 @@ import 'package:neith/widgets/inputs/neith_switcher.dart';
 import 'package:neith/widgets/layout.dart';
 import 'package:wizard_router/wizard_router.dart';
 
-class TravelPlansWizardFirstTripMoreInfoView extends StatelessWidget {
+class TravelPlansWizardFirstTripMoreInfoView extends StatefulWidget {
   final BuildContext parentContext;
+  final void Function(Map<String, dynamic> value) handleWizardState;
+  final Map<String, dynamic> wizardState;
+
+  const TravelPlansWizardFirstTripMoreInfoView(
+      {super.key,
+      required this.parentContext,
+      required this.handleWizardState,
+      required this.wizardState});
+
+  @override
+  State<StatefulWidget> createState() =>
+      TravelPlansWizardFirstTripMoreInfoViewState();
+}
+
+class TravelPlansWizardFirstTripMoreInfoViewState
+    extends State<TravelPlansWizardFirstTripMoreInfoView> {
   final bool showAppBar = true;
   final _formKey = GlobalKey<FormState>();
   final SwitchController _mobilityRestrictionsController = SwitchController(
@@ -19,15 +35,31 @@ class TravelPlansWizardFirstTripMoreInfoView extends StatelessWidget {
     'None',
   );
 
-  TravelPlansWizardFirstTripMoreInfoView(
-      {super.key, required this.parentContext});
-
   _handleWizardNext(BuildContext context) {
-    Wizard.of(context).next(arguments: {
+    widget.handleWizardState({
       'mobilityRestrictions': _mobilityRestrictionsController.value,
       'dietaryRestrictions': _dietaryRestrictionsController.value,
       'disabilities': _disabilitiesController.value
     });
+
+    Wizard.of(context).next();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _mobilityRestrictionsController.value =
+        widget.wizardState.containsKey('name');
+
+    _dietaryRestrictionsController.value =
+        widget.wizardState.containsKey('dietaryRestrictions')
+            ? widget.wizardState['dietaryRestrictions'].toString()
+            : '';
+
+    _disabilitiesController.value =
+        widget.wizardState.containsKey('disabilities')
+            ? widget.wizardState['disabilities'].toString()
+            : '';
   }
 
   @override

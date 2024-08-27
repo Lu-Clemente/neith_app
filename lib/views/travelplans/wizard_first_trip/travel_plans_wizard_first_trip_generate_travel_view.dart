@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:neith/services/travelplan.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/layout.dart';
 
 class TravelPlansWizardFirstTripGenerateTravelView extends StatefulWidget {
-  const TravelPlansWizardFirstTripGenerateTravelView({super.key});
+  const TravelPlansWizardFirstTripGenerateTravelView(
+      {super.key, required this.wizardState, required this.parentContext});
+
+  final BuildContext parentContext;
+  final Map<String, dynamic> wizardState;
 
   @override
   State<StatefulWidget> createState() =>
@@ -13,6 +18,28 @@ class TravelPlansWizardFirstTripGenerateTravelView extends StatefulWidget {
 class TravelPlansWizardFirstTripGenerateTravelViewState
     extends State<TravelPlansWizardFirstTripGenerateTravelView> {
   bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    handleGenerateTravelPlan();
+  }
+
+  handleGenerateTravelPlan() async {
+    TravelPlan res = await generateTravelPlan(widget.wizardState['createdId']);
+
+    if (context.mounted && res.name.isNotEmpty) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  handleFinishClick() {
+    Navigator.of(widget.parentContext)
+        .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -32,9 +59,11 @@ class TravelPlansWizardFirstTripGenerateTravelViewState
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    'Generating your travel plan...',
-                    style: TextStyle(
+                  Text(
+                    isLoading
+                        ? 'Generating your travel plan...'
+                        : 'Travel plan generated!',
+                    style: const TextStyle(
                         color: Colors.black87,
                         fontSize: 22,
                         fontWeight: FontWeight.w500),
@@ -60,7 +89,7 @@ class TravelPlansWizardFirstTripGenerateTravelViewState
                           ],
                         )
                       : NeithTextButton(
-                          onPressed: () => {}, label: 'Let\'s start!')
+                          onPressed: handleFinishClick, label: 'Let\'s start!')
                 ],
               )
             ],
