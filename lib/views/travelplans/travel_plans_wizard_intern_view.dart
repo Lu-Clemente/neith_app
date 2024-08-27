@@ -6,8 +6,27 @@ import 'package:neith/views/travelplans/wizard_intern/travel_plans_wizard_intern
 import 'package:neith/views/travelplans/wizard_intern/travel_plans_wizard_intern_time_view.dart';
 import 'package:wizard_router/wizard_router.dart';
 
-class TravelPlansWizardInternView extends StatelessWidget {
-  const TravelPlansWizardInternView({super.key});
+class TravelPlansWizardInternView extends StatefulWidget {
+  final BuildContext grandfathercontext;
+  const TravelPlansWizardInternView(
+      {super.key, required this.grandfathercontext});
+
+  @override
+  State<TravelPlansWizardInternView> createState() =>
+      TravelPlansWizardInternViewState();
+}
+
+class TravelPlansWizardInternViewState
+    extends State<TravelPlansWizardInternView> {
+  final Map<String, dynamic> wizardState = {};
+
+  void handleWizardState(Map<String, dynamic> value) {
+    setState(() {
+      wizardState.addAll(value);
+      debugPrint(wizardState.keys.toString());
+      debugPrint(wizardState.values.toString());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +36,28 @@ class TravelPlansWizardInternView extends StatelessWidget {
           '/search': WizardRoute(
               builder: (bla) => TravelPlansWizardInternSearchView(
                     parentContext: context,
+                    handleWizardState: handleWizardState,
                   )),
           '/interests': WizardRoute(
-              builder: (context) =>
-                  const TravelPlansWizardInternInterestsView()),
+              builder: (context) => TravelPlansWizardInternInterestsView(
+                    handleWizardState: handleWizardState,
+                    wizardState: wizardState,
+                  )),
           '/time': WizardRoute(
-              builder: (context) => const TravelPlansWizardInternTimeView()),
+              builder: (context) => TravelPlansWizardInternTimeView(
+                    handleWizardState: handleWizardState,
+                    wizardState: wizardState,
+                  )),
           '/more-details': WizardRoute(
-              builder: (context) => TravelPlansWizardInternMoreDetailsView()),
+              builder: (context) => TravelPlansWizardInternMoreDetailsView(
+                    handleWizardState: handleWizardState,
+                    wizardState: wizardState,
+                  )),
           '/generate': WizardRoute(
-              builder: (context) =>
-                  const TravelPlansWizardInternGenerateTravelView()),
+              builder: (context) => TravelPlansWizardInternGenerateTravelView(
+                    parentContext: widget.grandfathercontext,
+                    wizardState: wizardState,
+                  )),
         },
       ),
     );

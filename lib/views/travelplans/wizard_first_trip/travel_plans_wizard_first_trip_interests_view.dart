@@ -45,7 +45,7 @@ class TravelPlansWizardFirstTripInterestsView extends StatelessWidget {
                     'Local Culture',
                     'Religious',
                     'Shopping'
-                  ], onChanged: onChanged),
+                  ], externalSelectedItems: const [], onChanged: onChanged),
                 ),
                 const SizedBox(
                   height: 20,

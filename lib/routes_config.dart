@@ -28,8 +28,9 @@ get tabs => [
       TabItemWidget(
         routes: {
           '/': (BuildContext context) => const TravelPlansView(),
-          '/wizard': (BuildContext context) =>
-              const TravelPlansWizardInternView(),
+          '/wizard': (BuildContext context) => TravelPlansWizardInternView(
+                grandfathercontext: context,
+              ),
         },
         navigatorKey: NavigatorKeys.navigatorKeyTravelPlans,
       ),

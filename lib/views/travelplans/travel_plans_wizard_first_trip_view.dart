@@ -28,7 +28,7 @@ class TravelPlansWizardFirstTripView extends StatelessWidget {
               builder: (context) => const TravelPlansWizardFirstTripTimeView()),
           '/more-details': WizardRoute(
               builder: (context) =>
-                  TravelPlansWizardFirstTripMoreDetailsView()),
+                  const TravelPlansWizardFirstTripMoreDetailsView()),
           '/generate': WizardRoute(
               builder: (context) =>
                   const TravelPlansWizardFirstTripGenerateTravelView()),

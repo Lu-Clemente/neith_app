@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
       token = userToken!.toString();
     });
 
-    //createTravelPlan('morning', ['Eco-turism'], 4, 5, 8, 18);
+    //createTravelPlan(['morning', 'afternoon'], ['Eco-turism'], 4, 5, 8, 18);
 
     //generateTravelPlan('f44a1f7f-46da-4171-a7a2-77cedf2aab81');
     //startTravelPlan('f44a1f7f-46da-4171-a7a2-77cedf2aab81');

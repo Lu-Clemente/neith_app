@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 
 class NeithMultiSelectField extends StatefulWidget {
   const NeithMultiSelectField(
-      {super.key, required this.items, required this.onChanged});
+      {super.key,
+      required this.items,
+      required this.onChanged,
+      required this.externalSelectedItems});
 
   final List<String> items;
+  final List<String> externalSelectedItems;
   final ValueChanged<List<String>> onChanged;
 
   @override
@@ -19,6 +23,7 @@ class NeithMultiSelectFieldState extends State<NeithMultiSelectField> {
   @override
   void initState() {
     super.initState();
+    selectedItems = widget.externalSelectedItems;
   }
 
   void _toggleItem(String item) {

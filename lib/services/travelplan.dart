@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 const apiUrl =
     'https://us-central1-neith-app-project.cloudfunctions.net/api/v1/travel-plans';
 
-Future<void> createTravelPlan(
+Future<TravelPlan> createTravelPlan(
+    String name,
     String preferredTime,
     List<String> tourismTypes,
     int travelerCount,
@@ -25,6 +27,7 @@ Future<void> createTravelPlan(
   final response = await http.post(Uri.parse(apiUrl),
       headers: requestHeaders,
       body: jsonEncode(<String, dynamic>{
+        'name': name,
         'preferredTime': preferredTime,
         'tourismTypes': tourismTypes,
         'travelerCount': travelerCount,
@@ -34,14 +37,17 @@ Future<void> createTravelPlan(
       }));
 
   if (response.statusCode == 200) {
-    //final resFormatted = jsonDecode(response.body);
-    //debugPrint(resFormatted);
+    final resFormatted = jsonDecode(response.body);
+    debugPrint('Oi enfermeira');
+    final TravelPlan travelPlanFormatted = TravelPlan.fromJson(resFormatted);
+
+    return travelPlanFormatted;
   } else {
     throw Exception('failed to create travel plan');
   }
 }
 
-Future<void> generateTravelPlan(String planId) async {
+Future<TravelPlan> generateTravelPlan(String planId) async {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final user = auth.currentUser;
   final userToken = await user?.getIdToken();
@@ -56,8 +62,11 @@ Future<void> generateTravelPlan(String planId) async {
       headers: requestHeaders);
 
   if (response.statusCode == 200) {
-    /* final resFormatted = jsonDecode(response.body);
-    debugPrint(resFormatted); */
+    final resFormatted = jsonDecode(response.body);
+    debugPrint('Oi enfermeira');
+    final TravelPlan travelPlanFormatted = TravelPlan.fromJson(resFormatted);
+
+    return travelPlanFormatted;
   } else {
     throw Exception('failed to generate planId $planId');
   }
@@ -134,7 +143,7 @@ Future<Iterable<TravelPlan>> getTravelPlans() async {
 }
 
 class TravelPlan {
-  final String id;
+  final String? id;
   final String name;
   final int departureHour;
   final String preferredTime;
@@ -164,7 +173,7 @@ class TravelPlan {
       this.endDate);
 
   TravelPlan.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as String,
+      : id = json['id'] ?? json['id'],
         name = json['name'],
         departureHour = json['departureHour'],
         preferredTime = json['preferredTime'],

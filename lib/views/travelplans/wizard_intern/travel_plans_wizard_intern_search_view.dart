@@ -7,8 +7,11 @@ import 'package:wizard_router/wizard_router.dart';
 
 class TravelPlansWizardInternSearchView extends StatefulWidget {
   final BuildContext parentContext;
+  final void Function(Map<String, dynamic> value) handleWizardState;
   const TravelPlansWizardInternSearchView(
-      {super.key, required this.parentContext});
+      {super.key,
+      required this.parentContext,
+      required this.handleWizardState});
 
   @override
   State<StatefulWidget> createState() =>

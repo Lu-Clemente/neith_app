@@ -6,7 +6,11 @@ import 'package:neith/widgets/lists/preferred_time_card_list_item.dart';
 import 'package:wizard_router/wizard_router.dart';
 
 class TravelPlansWizardInternTimeView extends StatefulWidget {
-  const TravelPlansWizardInternTimeView({super.key});
+  const TravelPlansWizardInternTimeView(
+      {super.key, required this.handleWizardState, required this.wizardState});
+
+  final void Function(Map<String, dynamic> value) handleWizardState;
+  final Map<String, dynamic> wizardState;
 
   @override
   State<StatefulWidget> createState() => TravelPlansWizardInternTimeViewState();
@@ -16,9 +20,24 @@ class TravelPlansWizardInternTimeViewState
     extends State<TravelPlansWizardInternTimeView> {
   List<String> selectedItems = [];
 
+  _handleWizardNext(BuildContext context) {
+    Wizard.of(context).next();
+    widget.handleWizardState({"preferredTime": selectedItems});
+  }
+
+  _handleWizardBack(BuildContext context) {
+    Wizard.of(context).back();
+    widget.handleWizardState({"preferredTime": selectedItems});
+  }
+
   @override
   void initState() {
     super.initState();
+    debugPrint(widget.wizardState.values.toString());
+    selectedItems = widget.wizardState.containsKey('preferredTime')
+        ? widget.wizardState['preferredTime']
+        : [];
+    debugPrint(selectedItems.toString());
   }
 
   void _toggleItem(String item) {
@@ -31,14 +50,11 @@ class TravelPlansWizardInternTimeViewState
     });
   }
 
-  _handleWizardNext(BuildContext context) {
-    Wizard.of(context).next();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Layout(
-      appBar: const NeithAppBar(),
+      appBar:
+          NeithAppBar(onBackButtonPressed: () => _handleWizardBack(context)),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -5,19 +5,53 @@ import 'package:neith/widgets/inputs/neith_multi_select_field.dart';
 import 'package:neith/widgets/layout.dart';
 import 'package:wizard_router/wizard_router.dart';
 
-class TravelPlansWizardInternInterestsView extends StatelessWidget {
-  const TravelPlansWizardInternInterestsView({super.key});
+class TravelPlansWizardInternInterestsView extends StatefulWidget {
+  const TravelPlansWizardInternInterestsView(
+      {super.key, required this.handleWizardState, required this.wizardState});
+
+  final void Function(Map<String, dynamic> value) handleWizardState;
+  final Map<String, dynamic> wizardState;
+
+  @override
+  State<TravelPlansWizardInternInterestsView> createState() =>
+      TravelPlansWizardInternInterestsViewState();
+}
+
+class TravelPlansWizardInternInterestsViewState
+    extends State<TravelPlansWizardInternInterestsView> {
+  List<String> selectedItems = [];
 
   _handleWizardNext(BuildContext context) {
     Wizard.of(context).next();
+    widget.handleWizardState({"tourismTypes": selectedItems});
   }
 
-  void onChanged(List<String> value) {}
+  _handleWizardBack(BuildContext context) {
+    Wizard.of(context).back();
+    widget.handleWizardState({"tourismTypes": selectedItems});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint(widget.wizardState.values.toString());
+    selectedItems = widget.wizardState.containsKey('tourismTypes')
+        ? widget.wizardState['tourismTypes']
+        : [];
+    debugPrint(selectedItems.toString());
+  }
+
+  void onChanged(List<String> value) {
+    setState(() {
+      selectedItems = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Layout(
-      appBar: const NeithAppBar(),
+      appBar:
+          NeithAppBar(onBackButtonPressed: () => _handleWizardBack(context)),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,14 +72,17 @@ class TravelPlansWizardInternInterestsView extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 300,
-                  child: NeithMultiSelectField(items: const [
-                    'Adventure',
-                    'EcoTourism',
-                    'Gastronomic',
-                    'Local Culture',
-                    'Religious',
-                    'Shopping'
-                  ], onChanged: onChanged),
+                  child: NeithMultiSelectField(
+                      items: const [
+                        'Adventure',
+                        'EcoTourism',
+                        'Gastronomic',
+                        'Local Culture',
+                        'Religious',
+                        'Shopping'
+                      ],
+                      externalSelectedItems: selectedItems,
+                      onChanged: onChanged),
                 ),
                 const SizedBox(
                   height: 20,
