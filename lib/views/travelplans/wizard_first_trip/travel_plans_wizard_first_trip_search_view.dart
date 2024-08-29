@@ -21,9 +21,6 @@ class TravelPlansWizardFirstTripSearchViewState
   @override
   void initState() {
     super.initState();
-
-    something = Wizard.of(context).arguments as Map<String, dynamic>;
-    // ...
   }
 
   _handleSearchPlaceSubmit(String value) {}

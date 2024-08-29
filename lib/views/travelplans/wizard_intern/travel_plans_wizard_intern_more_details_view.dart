@@ -45,7 +45,7 @@ class _TravelPlansWizardInternMoreDetailsViewState
 
       final res = await createTravelPlan(
           widget.wizardState['name'],
-          'morning',
+          widget.wizardState['preferredTime'],
           widget.wizardState['tourismTypes'],
           widget.wizardState['travelerCount'],
           widget.wizardState['travelDuration'],

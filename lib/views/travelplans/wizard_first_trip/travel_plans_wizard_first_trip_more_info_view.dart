@@ -49,17 +49,17 @@ class TravelPlansWizardFirstTripMoreInfoViewState
   void initState() {
     super.initState();
     _mobilityRestrictionsController.value =
-        widget.wizardState.containsKey('name');
+        widget.wizardState.containsKey('mobilityRestrictions');
 
     _dietaryRestrictionsController.value =
         widget.wizardState.containsKey('dietaryRestrictions')
             ? widget.wizardState['dietaryRestrictions'].toString()
-            : '';
+            : 'None';
 
     _disabilitiesController.value =
         widget.wizardState.containsKey('disabilities')
             ? widget.wizardState['disabilities'].toString()
-            : '';
+            : 'None';
   }
 
   @override

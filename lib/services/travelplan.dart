@@ -8,7 +8,7 @@ const apiUrl =
 
 Future<TravelPlan> createTravelPlan(
     String name,
-    String preferredTime,
+    List<String> preferredTime,
     List<String> tourismTypes,
     int travelerCount,
     int travelDuration,
@@ -146,7 +146,7 @@ class TravelPlan {
   final String? id;
   final String name;
   final int departureHour;
-  final String preferredTime;
+  final List<dynamic> preferredTime;
   final int travelerCount;
   final int travelDuration;
   final int arrivalHour;
