@@ -8,7 +8,9 @@ import 'package:neith/views/travelplans/wizard_first_trip/travel_plans_wizard_fi
 import 'package:wizard_router/wizard_router.dart';
 
 class TravelPlansWizardFirstTripView extends StatefulWidget {
-  const TravelPlansWizardFirstTripView({super.key});
+  final BuildContext grandfathercontext;
+  const TravelPlansWizardFirstTripView(
+      {super.key, required this.grandfathercontext});
 
   @override
   State<TravelPlansWizardFirstTripView> createState() =>
@@ -59,7 +61,7 @@ class TravelPlansWizardFirstTripViewState
           '/generate': WizardRoute(
               builder: (context) =>
                   TravelPlansWizardFirstTripGenerateTravelView(
-                    parentContext: context,
+                    parentContext: widget.grandfathercontext,
                     wizardState: wizardState,
                   )),
         },

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:neith/services/user.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/inputs/neith_select_field.dart';
 import 'package:neith/widgets/inputs/neith_switcher.dart';
@@ -34,15 +36,33 @@ class TravelPlansWizardFirstTripMoreInfoViewState
   final DropdownController _disabilitiesController = DropdownController(
     'None',
   );
+  String userName = '';
 
-  _handleWizardNext(BuildContext context) {
+  void _getUser() {
+    FirebaseAuth.instance.userChanges().listen((User? user) {
+      setState(() {
+        userName = user == null ? '' : user.displayName.toString();
+      });
+    });
+  }
+
+  _handleWizardNext(BuildContext context) async {
     widget.handleWizardState({
       'mobilityRestrictions': _mobilityRestrictionsController.value,
       'dietaryRestrictions': _dietaryRestrictionsController.value,
       'disabilities': _disabilitiesController.value
     });
 
-    Wizard.of(context).next();
+    List<String> dietaryRestrictions = [];
+    dietaryRestrictions.add(_dietaryRestrictionsController.value.toString());
+    List<String> disabilities = [];
+    disabilities.add(_disabilitiesController.value.toString());
+
+    await updateUser(disabilities, dietaryRestrictions);
+
+    if (context.mounted) {
+      Wizard.of(context).next();
+    }
   }
 
   @override
@@ -60,6 +80,7 @@ class TravelPlansWizardFirstTripMoreInfoViewState
         widget.wizardState.containsKey('disabilities')
             ? widget.wizardState['disabilities'].toString()
             : 'None';
+    _getUser();
   }
 
   @override

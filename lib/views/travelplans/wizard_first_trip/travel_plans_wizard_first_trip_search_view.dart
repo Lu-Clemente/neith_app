@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:neith/widgets/app_bar/neith_app_bar.dart';
 import 'package:neith/widgets/inputs/neith_search_field.dart';
 import 'package:neith/widgets/layout.dart';
 import 'package:neith/widgets/lists/travel_plan_card_list_item.dart';
@@ -32,7 +31,6 @@ class TravelPlansWizardFirstTripSearchViewState
   @override
   Widget build(BuildContext context) {
     return Layout(
-      appBar: const NeithAppBar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

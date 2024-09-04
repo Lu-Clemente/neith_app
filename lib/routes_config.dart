@@ -50,6 +50,7 @@ Map<String, WidgetBuilder> get routes => {
       '/profile/reset_password': (context) => const ResetPasswordView(),
       '/profile/notifications': (BuildContext context) =>
           const NotificationView(),
-      '/wizard': (BuildContext context) =>
-          const TravelPlansWizardFirstTripView(),
+      '/wizard': (BuildContext context) => TravelPlansWizardFirstTripView(
+            grandfathercontext: context,
+          ),
     };
