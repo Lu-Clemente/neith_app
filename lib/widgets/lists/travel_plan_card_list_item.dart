@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class TravelPlanCardListItem extends StatelessWidget {
   final void Function() onPressed;
   final String name;
-  final String shortFormattedAddress;
+  final String description;
   final String photoUrl;
 
   const TravelPlanCardListItem(
       {super.key,
       required this.onPressed,
       required this.name,
-      required this.shortFormattedAddress,
+      required this.description,
       required this.photoUrl});
 
   @override
@@ -39,13 +39,12 @@ class TravelPlanCardListItem extends StatelessWidget {
                               name)),
                       LimitedBox(
                         maxWidth: 180,
-                        child: Text(shortFormattedAddress),
+                        child: Text(description),
                       )
                     ],
                   ),
                   const SizedBox(width: 10),
-                  const Image(
-                      width: 60, image: AssetImage('assets/notfound.png')),
+                  Image(height: 60, image: NetworkImage(photoUrl)),
                 ],
               ))),
     );
