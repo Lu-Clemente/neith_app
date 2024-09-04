@@ -43,7 +43,7 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
     bool isVerified = await _checkEmailVerified();
     if (isVerified) {
       Navigator.pushNamedAndRemoveUntil(
-          context, '/', (Route<dynamic> route) => false);
+          context, '/wizard', (Route<dynamic> route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Email not verified')),
@@ -54,7 +54,7 @@ class EmailConfirmationViewState extends State<EmailConfirmationView> {
   void _navigateToHome() {
     _timer?.cancel(); // Stop the timer once the user is verified
     Navigator.pushNamedAndRemoveUntil(
-        context, '/', (Route<dynamic> route) => false);
+        context, '/wizard', (Route<dynamic> route) => false);
   }
 
   void _startVerificationCheck() {

@@ -6,17 +6,23 @@ class NeithTextField extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final TextInputAction textInputAction;
+  final TextInputType textInputType;
   final String? Function(String?)? validator;
   final bool? isPassword;
+  final bool? readOnly;
+  final void Function()? onTap;
 
-  const NeithTextField({
-    Key? key,
-    required this.controller,
-    required this.labelText,
-    this.validator,
-    this.isPassword = false,
-    this.textInputAction = TextInputAction.done,
-  }) : super(key: key);
+  const NeithTextField(
+      {Key? key,
+      required this.controller,
+      required this.labelText,
+      this.validator,
+      this.isPassword = false,
+      this.readOnly = false,
+      this.textInputAction = TextInputAction.done,
+      this.textInputType = TextInputType.text,
+      this.onTap})
+      : super(key: key);
 
   @override
   State<NeithTextField> createState() => _NeithTextFieldState();
@@ -42,6 +48,9 @@ class _NeithTextFieldState extends State<NeithTextField> {
       child: TextFormField(
         controller: widget.controller,
         textInputAction: widget.textInputAction,
+        keyboardType: widget.textInputType,
+        readOnly: widget.readOnly!,
+        onTap: widget.onTap,
         decoration: InputDecoration(
           labelText: widget.labelText,
           labelStyle: const TextStyle(

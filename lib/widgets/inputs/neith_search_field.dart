@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class NeithSearchField extends StatefulWidget {
+  final bool? readOnly;
   final TextEditingController controller;
   final void Function(String value) onFieldSubmitted;
   const NeithSearchField(
-      {super.key, required this.controller, required this.onFieldSubmitted});
+      {super.key,
+      required this.controller,
+      required this.onFieldSubmitted,
+      this.readOnly = false});
 
   @override
   NeithSearchFieldState createState() => NeithSearchFieldState();
@@ -22,6 +26,7 @@ class NeithSearchFieldState extends State<NeithSearchField> {
       ),
       child: TextFormField(
         controller: widget.controller,
+        readOnly: widget.readOnly as bool,
         onFieldSubmitted: (value) => widget.onFieldSubmitted(value),
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(

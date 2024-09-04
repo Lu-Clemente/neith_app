@@ -29,6 +29,8 @@ flutter:
     - assets/meta_icon.png
     - assets/notfound.png
     - assets/recommendationplace.png
+    - assets/wizard-flow-1.png
+    - assets/generating-travel-plan.png
     - assets/icon/gmail_groups.png
     - assets/icon/schedule.png
     - assets/icon/today.png

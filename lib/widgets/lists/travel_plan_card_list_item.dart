@@ -44,7 +44,9 @@ class TravelPlanCardListItem extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(width: 10),
-                  Image(height: 60, image: NetworkImage(photoUrl)),
+                  const Image(
+                      height: 60,
+                      image: AssetImage('assets/recommendationplace.png')),
                 ],
               ))),
     );

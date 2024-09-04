@@ -10,7 +10,8 @@ import 'package:neith/views/profile/profile_view.dart';
 import 'package:neith/views/search/search_view.dart';
 import 'package:neith/views/travelplans/travel_plans_details_view.dart';
 import 'package:neith/views/travelplans/travel_plans_view.dart';
-import 'package:neith/views/travelplans/travel_plans_wizard_view.dart';
+import 'package:neith/views/travelplans/travel_plans_wizard_first_trip_view.dart';
+import 'package:neith/views/travelplans/travel_plans_wizard_intern_view.dart';
 
 get tabs => [
       TabItemWidget(
@@ -28,7 +29,9 @@ get tabs => [
       TabItemWidget(
         routes: {
           '/': (BuildContext context) => const TravelPlansView(),
-          '/wizard': (BuildContext context) => const TravelPlansWizardView(),
+          '/wizard': (BuildContext context) => TravelPlansWizardInternView(
+                grandfathercontext: context,
+              ),
           '/details': (BuildContext context) => const TravelPlansDetailsView(),
         },
         navigatorKey: NavigatorKeys.navigatorKeyTravelPlans,
@@ -49,6 +52,8 @@ Map<String, WidgetBuilder> get routes => {
       '/profile/reset_password': (context) => const ResetPasswordView(),
       '/profile/notifications': (BuildContext context) =>
           const NotificationView(),
-      '/wizard': (BuildContext context) => const TravelPlansWizardView(),
+      '/wizard': (BuildContext context) => TravelPlansWizardFirstTripView(
+            grandfathercontext: context,
+          ),
       '/details': (BuildContext context) => const TravelPlansDetailsView(),
     };
