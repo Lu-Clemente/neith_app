@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:neith/services/travelplan.dart';
 import 'package:neith/widgets/buttons/neith_text_button.dart';
 import 'package:neith/widgets/layout.dart';
@@ -13,20 +16,42 @@ class TravelPlansView extends StatefulWidget {
 
 class _TravelPlansState extends State<TravelPlansView> {
   late Future<Iterable<TravelPlan>> getTravelplan;
+  late Future<List<TravelPlan>> fakePlans;
 
   handleCreateTravelPlan() {
     debugPrint('create new travel plan');
     Navigator.pushNamed(context, '/wizard');
   }
 
-  handleTravelPlanDetailsClick() {
-    debugPrint('see travel plan details');
+  handleTravelPlanDetailsClick({required String name}) {
+    Navigator.pushNamed(context, '/details', arguments: {
+      'travelPlan': name,
+    });
+  }
+
+  sendTravelPlanToDetailsView({required TravelPlan travelPlan}) {
+    Navigator.pushNamed(context, '/details', arguments: {
+      'travelPlan': travelPlan,
+    });
+  }
+
+  Future<List<TravelPlan>> loadTravelPlans() async {
+    // Load JSON data from the assets
+    final jsonString =
+        await rootBundle.loadString('assets/travel_plan_data.json');
+
+    // Decode JSON data
+    final List<dynamic> jsonResponse = json.decode(jsonString);
+
+    // Convert to List<TravelPlan>
+    return jsonResponse.map((json) => TravelPlan.fromJson(json)).toList();
   }
 
   @override
   void initState() {
     super.initState();
     getTravelplan = getTravelPlans();
+    fakePlans = loadTravelPlans();
   }
 
   @override
@@ -56,7 +81,7 @@ class _TravelPlansState extends State<TravelPlansView> {
             height: 20,
           ),
           FutureBuilder(
-              future: getTravelplan,
+              future: fakePlans,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!.isNotEmpty) {
@@ -77,7 +102,9 @@ class _TravelPlansState extends State<TravelPlansView> {
                           children: snapshot.data!.map((el) {
                             if (el.startDate != null && el.endDate == null) {
                               return TravelPlanCardListItem(
-                                  onPressed: handleTravelPlanDetailsClick,
+                                  onPressed: () => sendTravelPlanToDetailsView(
+                                        travelPlan: el,
+                                      ),
                                   name: el.name,
                                   description: el.tourismTypes.join(', '),
                                   photoUrl:
@@ -106,7 +133,9 @@ class _TravelPlansState extends State<TravelPlansView> {
                           children: snapshot.data!.map((el) {
                             if (el.startDate == null) {
                               return TravelPlanCardListItem(
-                                  onPressed: handleTravelPlanDetailsClick,
+                                  onPressed: () => sendTravelPlanToDetailsView(
+                                        travelPlan: el,
+                                      ),
                                   name: el.name,
                                   description: el.tourismTypes.join(', '),
                                   photoUrl:
@@ -135,7 +164,9 @@ class _TravelPlansState extends State<TravelPlansView> {
                           children: snapshot.data!.map((el) {
                             if (el.endDate != null) {
                               return TravelPlanCardListItem(
-                                  onPressed: handleTravelPlanDetailsClick,
+                                  onPressed: () => handleTravelPlanDetailsClick(
+                                        name: el.name,
+                                      ),
                                   name: el.name,
                                   description: el.tourismTypes.join(', '),
                                   photoUrl:

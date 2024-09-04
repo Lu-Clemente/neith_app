@@ -34,3 +34,4 @@ flutter:
     - assets/icon/gmail_groups.png
     - assets/icon/schedule.png
     - assets/icon/today.png
+    - assets/travel_plan_data.json

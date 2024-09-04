@@ -188,6 +188,11 @@ class TravelPlan {
             json['startDate'] != null ? json['startDate']['_seconds'] : null,
         endDate = json['endDate'] != null ? json['endDate']['_seconds'] : null;
 
+  @override
+  String toString() {
+    return 'TravelPlan{id: $id, name: $name, departureHour: $departureHour, preferredTime: $preferredTime, travelerCount: $travelerCount, travelDuration: $travelDuration, arrivalHour: $arrivalHour, tourismTypes: $tourismTypes, userId: $userId, tips: $tips, plan: $plan, startDate: $startDate, endDate: $endDate}';
+  }
+
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
@@ -211,10 +216,20 @@ class TravelPlanSchedule {
   final String time;
 
   TravelPlanSchedule(this.activity, this.location, this.time);
+
+  @override
+  String toString() {
+    return 'TravelPlanSchedule{activity: $activity, location: $location, time: $time}';
+  }
 }
 
 class TravelPlanDay {
   final List<TravelPlanSchedule> days;
 
   TravelPlanDay(this.days);
+
+  @override
+  String toString() {
+    return 'TravelPlanDay{days: $days}';
+  }
 }

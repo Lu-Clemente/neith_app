@@ -8,6 +8,7 @@ import 'package:neith/views/index_view.dart';
 import 'package:neith/views/profile/notification_view.dart';
 import 'package:neith/views/profile/profile_view.dart';
 import 'package:neith/views/search/search_view.dart';
+import 'package:neith/views/travelplans/travel_plans_details_view.dart';
 import 'package:neith/views/travelplans/travel_plans_view.dart';
 import 'package:neith/views/travelplans/travel_plans_wizard_first_trip_view.dart';
 import 'package:neith/views/travelplans/travel_plans_wizard_intern_view.dart';
@@ -31,6 +32,7 @@ get tabs => [
           '/wizard': (BuildContext context) => TravelPlansWizardInternView(
                 grandfathercontext: context,
               ),
+          '/details': (BuildContext context) => const TravelPlansDetailsView(),
         },
         navigatorKey: NavigatorKeys.navigatorKeyTravelPlans,
       ),
@@ -53,4 +55,5 @@ Map<String, WidgetBuilder> get routes => {
       '/wizard': (BuildContext context) => TravelPlansWizardFirstTripView(
             grandfathercontext: context,
           ),
+      '/details': (BuildContext context) => const TravelPlansDetailsView(),
     };
